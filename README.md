@@ -10,7 +10,13 @@ another team, whilst they implement our project.
 
 Our team, "ULAA Tech Solutions" comprises of four members:
 
-# Alexandre Krattinger
-# Atif Mahmud
-# Logan Ennis
-# Uriel Sade
+[Alexandre Krattinger](https://github.com/krattinger)
+
+
+[Atif Mahmud](https://github.com/AtifMahmud)
+
+
+[Logan Ennis](https://github.com/loganennis)
+
+
+[Uriel Sade](https://github.com/urielsade)
