@@ -1,0 +1,19 @@
+{
+  "name": "bulletinboard",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "bcrypt": "*",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "cors": "*",
+    "debug": "*",
+    "express": "*",
+    "mongoose": "^4.10.8",
+    "nodemailer": "*",
+    "serve-favicon": "*"
+  }
+}
