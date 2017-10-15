@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class CreateNewPost extends AppCompatActivity {
 
     @Override
@@ -26,6 +28,8 @@ public class CreateNewPost extends AppCompatActivity {
         TextView t2 = (TextView) findViewById(R.id.postDescription);
         t2.setText(thisPost.getDescription());
 
+        Posts posts = Posts.getInstance();
+        posts.addPost(thisPost);
         // send fields to server
     }
 }

@@ -17,4 +17,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CreateNewPost.class);
         startActivity(intent);
     }
+
+    public void showPostScreen(View view){
+        Intent intent = new Intent(this, ShowPost.class);
+        startActivity(intent);
+    }
 }
