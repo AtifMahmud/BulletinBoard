@@ -22,12 +22,6 @@ public class CreateNewPost extends AppCompatActivity {
         String description = ((EditText) findViewById(R.id.description)).getText().toString().toLowerCase();
         Post thisPost = new Post(title, description);
 
-        TextView t1 = (TextView) findViewById(R.id.postTitle);
-        t1.setText(thisPost.getTitle());
-
-        TextView t2 = (TextView) findViewById(R.id.postDescription);
-        t2.setText(thisPost.getDescription());
-
         Posts posts = Posts.getInstance();
         posts.addPost(thisPost);
         // send fields to server
