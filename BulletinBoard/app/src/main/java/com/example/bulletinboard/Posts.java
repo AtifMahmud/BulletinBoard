@@ -3,6 +3,7 @@ package com.example.bulletinboard;
 import java.util.ArrayList;
 import java.lang.Object;
 import org.json.*;
+import java.util.HashMap;
 
 
 /**
