@@ -2,7 +2,7 @@ package com.example.bulletinboard;
 
 import java.util.ArrayList;
 import java.lang.Object;
-import org.json.*
+import org.json.*;
 
 
 /**
@@ -103,8 +103,13 @@ public class Posts {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        if(response.get("success") == "true") {
-                            populateArray(response.get("posts"));
+                        try {
+                            if (response.get("success") == "true") {
+                                populateArray(response.getJSONArray("posts"));
+                            }
+                        }
+                        catch(org.json.JSONException e){
+                            e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -121,8 +126,14 @@ public class Posts {
 
     private void populateArray(JSONArray data){
         postList = new ArrayList<>();
-        for(JSONObject j : data){
-            Post p = Post(j.get("title"), j.get("description"));
+        for(int i = 0; i < data.length(); i++){
+            Post p;
+            try {
+                p = new Post(data.getJSONObject(i).getString("title"), data.getJSONObject(i).getString("description"));
+            }
+            catch (org.json.JSONException e){
+                e.printStackTrace();
+            }
             postList.add(p);
         }
     }
