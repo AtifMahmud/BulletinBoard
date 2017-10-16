@@ -99,16 +99,18 @@ public class Posts {
         String url = "http://104.197.33.114:8000/api/posts/all/";
 
         //Makes the actual request
-        JsonArrayRequest req = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
+        JsonObjectRequest req = new JsonObjectRequest(url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        populateArray(response);
+                    public void onResponse(JSONObject response) {
+                        if(response.get("success") == "true") {
+                            populateArray(response.get("posts"));
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                VolleyLog.e("Error: ", error.getMessage());
             }
         });
 
