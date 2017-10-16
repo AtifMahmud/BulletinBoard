@@ -12,7 +12,7 @@
     "cors": "*",
     "debug": "*",
     "express": "*",
-    "mongoose": "^4.10.8",
+    "mongoose": "4.10.8",
     "nodemailer": "*",
     "serve-favicon": "*"
   }
