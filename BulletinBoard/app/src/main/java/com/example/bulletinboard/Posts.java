@@ -46,7 +46,7 @@ public class Posts {
     public void addPost(Post post){
 
         postList.add(post);
-        addPostToServer(post);
+        //addPostToServer(post);
     }
 
     public Post getPost(int index){

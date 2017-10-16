@@ -74,25 +74,6 @@
                 android:padding="2dp"
                 android:text="Finish" />
 
-            <TextView
-                android:id="@+id/postTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-thin"
-                android:textColor="#440027"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/postDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-thin"
-                android:textColor="#440027"
-                android:textSize="25dp" />
         </LinearLayout>
 
     </ScrollView>
