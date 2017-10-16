@@ -28,7 +28,9 @@ public class Posts {
     }
 
     public void addPost(Post post){
+
         postList.add(post);
+        addPostToServer(post);
     }
 
     public Post getPost(int index){
@@ -39,7 +41,46 @@ public class Posts {
         return postList;
     }
 
-    private void updatePostList(){
+    public void addPostToServer(Post p){
+
+        RequestQueue mRequestQueue;
+
+        // Instantiate the cache
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+
+        // Set up the network to use HttpURLConnection as the HTTP client.
+        Network network = new BasicNetwork(new HurlStack());
+
+        // Instantiate the RequestQueue with the cache and network.
+        mRequestQueue = new RequestQueue(cache, network);
+
+        // Start the queue
+        mRequestQueue.start();
+
+        String url = "http://104.197.33.114:8000/api/posts/";
+
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("title", p.title);
+        params.put("description", p.descrition);
+
+        JsonObjectRequest req = new JsonObjectRequest(URL, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        return;
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        mRequestQueue.add(req);
+    }
+
+    public void updatePostList(){
 
         RequestQueue mRequestQueue;
 
@@ -57,6 +98,7 @@ public class Posts {
 
         String url = "http://104.197.33.114:8000/api/posts/all/";
 
+        //Makes the actual request
         JsonArrayRequest req = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
                     @Override
