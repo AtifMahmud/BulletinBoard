@@ -20,7 +20,102 @@
 
     <h1>API Documentation</h1>
 
-    <h3>TODO</h3>
+    <!----------------------------->
 
+    <h3><br/>Users</h3>
+
+<h4>Route: api/users/ <br/></h4>
+
+<table>
+    <tr>
+        <th>METHOD</th>
+        <th>PATH</th>
+        <th class="description">RETURNS</th>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/all/</td>
+        <td class="description">Returns all users with the following fields:
+            id, first_name, last_name, email, rating, posts, registration</td>
+    </tr>
+    <tr>
+        <td>POST</td>
+        <td>/</td>
+        <td class="description">Registers a new user with the following in the body:<br/>
+        first_name  : String (required)<br/>
+        last_name   : String (required)<br/>
+        password    : String (required) (hashed server side)<br/>
+        email       : String (required)<br/>
+        phone       : String (optional)<br/>
+        </td>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/id=:id (e.g. id=59e2ebfc50a9746df27e05f2)</td>
+        <td class="description">Gets ONE user's info by id</td>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/name=:name (e.g. name=Tor)</td>
+        <td class="description">Gets a list of users with a given name (just first name exact match for now)</td>
+    </tr>
+    <tr>
+        <td>GET</td>
+        <td>/clear</td>
+        <td class="description">Clears all users. (For testing). Will be removed later.</td>
+    </tr>
+</table>
+        <!----------------------------->
+        <h3><br/>Posts</h3>
+
+    <h4>Route: api/posts/ <br/></h4>
+
+    <table>
+        <tr>
+            <th>METHOD</th>
+            <th>PATH</th>
+            <th class="description">RETURNS</th>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/all/</td>
+            <td class="description">Returns all posts with the following fields:
+                id, user_id, title, description, date, __v (version #), images (links), showPhone, showEmail.
+                Show phone and show email are garbage since this should be handled server side. Ignore them.
+                Will change to add fields `phone` and `email` with empty string if shouldn't show.</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/</td>
+            <td class="description">Posts a new post with the following in the body:<br/>
+            user_id     : String (required)<br/>
+            title       : String (required)<br/>
+            description : String (required)<br/>
+            showEmail   : Boolean (default=false)<br/>
+            showPhone   : Boolean (default=false)<br/>
+            images      : List of strings (default=[])<br/>
+            </td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/id=:id (e.g. id=59e2ebfc50a9746df27e05f2)</td>
+            <td class="description">Gets ONE post's info by id</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/clear</td>
+            <td class="description">Clears all posts. (For testing). Will be removed later.</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/update/id=:id</td>
+            <td class="description">Updates a post. Updated fields are in the body.</td>
+        </tr>
+    </table>
+    <br/>
+    <br/>
+    There are a lot of security issues as of now. they will be dealt with soon.
+    <br/>
+    <br/>
 </body>
 </html>

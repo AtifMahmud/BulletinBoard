@@ -8,7 +8,7 @@ var schema = mongoose.Schema({
 
     user_id:{
         required:true,
-        type:Number
+        type:String
     },
     title:{
         required:true,
