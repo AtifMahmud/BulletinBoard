@@ -1,13 +1,9 @@
 package com.example.bulletinboard.Network;
 
 import android.app.Application;
+import android.content.Context;
 
-import com.android.volley.Cache;
-import com.android.volley.Network;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 
 /**
@@ -17,25 +13,27 @@ import com.android.volley.toolbox.Volley;
  * Connection is a Singleton class
  */
 
-public final class Connection extends Application {
+public final class Connection{
     private final RequestQueue requestQueue;
     private static Connection instance;
 
-    private Connection(){
+    private Connection(Context context){
 
-        // Instantiate the cache
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-
-        // Set up the network to use HttpURLConnection as the HTTP client.
-        Network network = new BasicNetwork(new HurlStack());
-
-        requestQueue = Volley.newRequestQueue(this);
+        requestQueue = Volley.newRequestQueue(context);
         requestQueue.start();
+    }
+
+    public synchronized static Connection get(Context context) {
+        if (instance == null) {
+            instance = new Connection(context);
+        }
+
+        return instance;
     }
 
     public synchronized static Connection get() {
         if (instance == null) {
-            instance = new Connection();
+                throw new IllegalStateException();
         }
 
         return instance;

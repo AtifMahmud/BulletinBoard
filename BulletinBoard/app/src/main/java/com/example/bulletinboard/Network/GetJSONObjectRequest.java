@@ -32,10 +32,12 @@ public class GetJSONObjectRequest implements Request {
                     url, null, response -> {
                         status = Status.SUCCESS;
                         Log.d("SEND SUCCESS", response.toString());
+                        Log.d("SEND BEGINNING", "SENT");
                         callback.onSuccess(response);
-                    }, response -> {
+                    }, e -> {
                         status = Status.ERROR;
-                        Log.d("SEND FAILURE", response.toString());
+                        Log.d("SEND FAILURE", "error");
+                        Log.d("SEND ERROR", "SENT");
                         callback.onFailure();
                     });
 

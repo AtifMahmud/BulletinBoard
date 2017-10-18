@@ -38,10 +38,12 @@ public class Posts {
         //addPostToServer(post);
     }
 
-    public void addPosts(JSONObject json){
-        try {
-            if (json.get("success") == "true") {
 
+    public void addPosts(JSONObject json){
+
+        try {
+            if (json.getString("success").equals("true")) {
+                Log.d("Add Posts", json.toString());
                 JSONArray data = json.getJSONArray("posts");
 
                 for (int i = 0; i < data.length(); i++) {
@@ -61,6 +63,7 @@ public class Posts {
     }
 
     public ArrayList<Post> getPosts(){
+
        GetJSONObjectRequest request = GetJSONObjectRequest.getAllPosts(new VolleyCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject response) {
@@ -75,7 +78,7 @@ public class Posts {
 
         request.send();
 
-        while (request.getStatus() != Status.SUCCESS || request.getStatus() != Status.ERROR);
+        //while (request.getStatus() != Status.SUCCESS || request.getStatus() != Status.ERROR);
         return postList;
     }
 }
