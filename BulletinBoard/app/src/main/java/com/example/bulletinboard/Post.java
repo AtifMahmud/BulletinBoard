@@ -26,4 +26,5 @@ public class Post {
     public String getDescription(){
         return this.description;
     }
+
 }
