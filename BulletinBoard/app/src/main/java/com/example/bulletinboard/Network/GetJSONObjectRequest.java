@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 public class GetJSONObjectRequest implements Request {
 
-    private Status status;
+    private Status status = Status.UNINITIALISED;
     private Connection connection;
     private final VolleyCallback<JSONObject> callback;
     private final String url;
@@ -27,17 +27,13 @@ public class GetJSONObjectRequest implements Request {
     }
 
     public void send(){
-        Log.d("SEND BEGINNING", "SENT");
+
             JsonObjectRequest jsonObjReq = new JsonObjectRequest(com.android.volley.Request.Method.GET,
                     url, null, response -> {
                         status = Status.SUCCESS;
-                        Log.d("SEND SUCCESS", response.toString());
-                        Log.d("SEND BEGINNING", "SENT");
                         callback.onSuccess(response);
                     }, e -> {
                         status = Status.ERROR;
-                        Log.d("SEND FAILURE", "error");
-                        Log.d("SEND ERROR", "SENT");
                         callback.onFailure();
                     });
 

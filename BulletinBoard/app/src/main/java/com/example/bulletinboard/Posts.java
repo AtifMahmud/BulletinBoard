@@ -3,6 +3,7 @@ package com.example.bulletinboard;
 import android.util.Log;
 
 import com.example.bulletinboard.Network.GetJSONObjectRequest;
+import com.example.bulletinboard.Network.PostJSONObjectRequest;
 import com.example.bulletinboard.Network.Status;
 import com.example.bulletinboard.Network.VolleyCallback;
 
@@ -35,7 +36,19 @@ public class Posts {
 
     public void addPost(Post post){
         postList.add(post);
-        //addPostToServer(post);
+        PostJSONObjectRequest request = PostJSONObjectRequest.post(new VolleyCallback<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                Log.d("posted",response.toString());
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("failed","Failure");
+            }
+        }, post);
+
+        request.send();
     }
 
 
@@ -45,6 +58,8 @@ public class Posts {
             if (json.getString("success").equals("true")) {
                 Log.d("Add Posts", json.toString());
                 JSONArray data = json.getJSONArray("posts");
+
+                postList = new ArrayList<>();
 
                 for (int i = 0; i < data.length(); i++) {
                     Post p;
@@ -59,7 +74,12 @@ public class Posts {
     }
 
     public Post getPost(int index){
-        return postList.get(index);
+        if(index < postList.size()) {
+            return postList.get(index);
+        }
+        else{
+            return new Post("Network Error","Go back and try again");
+        }
     }
 
     public ArrayList<Post> getPosts(){
