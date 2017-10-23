@@ -1,9 +1,9 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var Posts = require('../models/posts_model');
+var Posts = require("../models/posts_model");
 
 // Create a new post
-router.post('/', function (req, resp) {
+router.post("/", function (req, resp) {
 
     var post = req.body;
 
@@ -18,7 +18,7 @@ router.post('/', function (req, resp) {
 });
 
 // Get a specific post by id
-router.get('/id=:id', function (req, resp) {
+router.get("/id=:id", function (req, resp) {
 
     var id = req.params.id;
 

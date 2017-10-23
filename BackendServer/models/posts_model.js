@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 
 const TESTING = true;
@@ -39,7 +39,7 @@ var schema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('posts', schema);
+module.exports = mongoose.model("posts", schema);
 
 const Posts = module.exports;
 

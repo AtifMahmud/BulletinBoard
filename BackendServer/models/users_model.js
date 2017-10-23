@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
-var nodemailer = require('nodemailer');
-var email_config = require('../config/emailconfig');
+var mongoose = require("mongoose");
+var bcrypt = require("bcrypt");
+var nodemailer = require("nodemailer");
+var email_config = require("../config/emailconfig");
 
 
 const TESTING = true;
@@ -47,7 +47,7 @@ var schema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('users', schema);
+module.exports = mongoose.model("users", schema);
 const Users = module.exports;
 
 const WANTED_FIELDS = "_id first_name last_name email registration posts rating";
@@ -62,9 +62,9 @@ module.exports.sendRegistrationEmail = function (user) {
     } 
 
     const mailOptions = {
-        from: '"BulletinBoard Team" <mailer@bulletinboardteam321.com>', // sender address
+        from: "BulletinBoard Team <mailer@bulletinboardteam321.com>", // sender address
         to:  user.email,
-        subject: 'Thanks for joining BulletinBoard!',
+        subject: "Thanks for joining BulletinBoard!",
         text: "Hey, " + user.first_name + ","
         + "\n\nThank you for joining BulletinBoard!"
         + "\n\nConfirm your email here: TODO"
@@ -74,7 +74,7 @@ module.exports.sendRegistrationEmail = function (user) {
         + "\n\n\n"
     };
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        service: "gmail",
         auth: {
             user: email_config.email_account.email,
             pass: email_config.email_account.pass
@@ -84,7 +84,7 @@ module.exports.sendRegistrationEmail = function (user) {
     // send mail with defined transport object
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
-            return console.log(error);
+         //   return console.log(error); // for debugging
         }
     });
 };
