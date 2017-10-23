@@ -29,12 +29,12 @@ router.get('/id=:id', function (req, resp) {
             resp.json({success:true, post:post});
         }
 
-    })
+    });
 
 
 });
 
-router.post('/update/id=:id', function (req, resp) {
+router.post("/update/id=:id", function (req, resp) {
 
     var id = req.params.id;
 
@@ -51,7 +51,7 @@ router.post('/update/id=:id', function (req, resp) {
 
 
 // Get a list of all posts
-router.get('/all/', function (req, resp) {
+router.get("/all/", function (req, resp) {
     Posts.getAllPosts(function (err, posts) {
         if(err) {
             resp.json({success:false});
@@ -69,7 +69,7 @@ router.get('/all/', function (req, resp) {
 
 
 // Clear all posts (For development, not production)
-router.get('/clear', function (req, resp) {
+router.get("/clear", function (req, resp) {
 
     Posts.clearAll(function () {
 

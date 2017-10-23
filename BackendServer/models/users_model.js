@@ -50,14 +50,16 @@ var schema = mongoose.Schema({
 module.exports = mongoose.model('users', schema);
 const Users = module.exports;
 
-const WANTED_FIELDS = '_id first_name last_name email registration posts rating';
+const WANTED_FIELDS = "_id first_name last_name email registration posts rating";
 
 /**
  * Sends a registration email to the email provided during registration
  * @param user - User object containing all registration info
  */
 module.exports.sendRegistrationEmail = function (user) {
-    if(!SEND_EMAIL) return;
+    if(!SEND_EMAIL){
+        return;
+    } 
 
     const mailOptions = {
         from: '"BulletinBoard Team" <mailer@bulletinboardteam321.com>', // sender address
