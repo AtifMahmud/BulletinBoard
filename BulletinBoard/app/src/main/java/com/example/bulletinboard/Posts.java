@@ -91,7 +91,7 @@ public class Posts {
 
             @Override
             public void onFailure() {
-
+                Log.d("failed","Failure");
             }
         });
 
