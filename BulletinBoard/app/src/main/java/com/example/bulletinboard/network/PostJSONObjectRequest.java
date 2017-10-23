@@ -1,4 +1,4 @@
-package com.example.bulletinboard.Network;
+package com.example.bulletinboard.network;
 
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.bulletinboard.Post;
