@@ -1,6 +1,4 @@
-package com.example.bulletinboard.Network;
-
-import android.util.Log;
+package com.example.bulletinboard.network;
 
 import com.android.volley.toolbox.JsonObjectRequest;
 

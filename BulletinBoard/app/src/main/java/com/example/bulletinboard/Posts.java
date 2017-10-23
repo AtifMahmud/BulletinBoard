@@ -2,10 +2,9 @@ package com.example.bulletinboard;
 
 import android.util.Log;
 
-import com.example.bulletinboard.Network.GetJSONObjectRequest;
-import com.example.bulletinboard.Network.PostJSONObjectRequest;
-import com.example.bulletinboard.Network.Status;
-import com.example.bulletinboard.Network.VolleyCallback;
+import com.example.bulletinboard.network.GetJSONObjectRequest;
+import com.example.bulletinboard.network.PostJSONObjectRequest;
+import com.example.bulletinboard.network.VolleyCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

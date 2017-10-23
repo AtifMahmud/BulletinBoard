@@ -1,6 +1,5 @@
-package com.example.bulletinboard.Network;
+package com.example.bulletinboard.network;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.android.volley.RequestQueue;

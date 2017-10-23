@@ -1,4 +1,4 @@
-package com.example.bulletinboard.Network;
+package com.example.bulletinboard.network;
 
 
 /**

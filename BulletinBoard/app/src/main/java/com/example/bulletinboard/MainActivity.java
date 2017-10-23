@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.bulletinboard.Network.Connection;
+import com.example.bulletinboard.network.Connection;
 
 public class MainActivity extends AppCompatActivity {
 
