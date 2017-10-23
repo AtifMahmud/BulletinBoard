@@ -4,11 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-
-import org.json.JSONArray;
-
-import java.util.ArrayList;
-
 public class ShowPost extends AppCompatActivity {
 
     @Override
@@ -17,7 +12,6 @@ public class ShowPost extends AppCompatActivity {
         setContentView(R.layout.activity_show_post);
 
         Posts posts = Posts.getInstance();
-        Post thisPost = posts.getPost(0);
 
         PostsAdapter adapter = new PostsAdapter(this, posts.getPosts());
 
