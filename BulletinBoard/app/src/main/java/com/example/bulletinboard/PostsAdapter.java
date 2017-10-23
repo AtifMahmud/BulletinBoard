@@ -20,11 +20,12 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+        View tempView = convertView;
         // get the item at this position
         Post post = getItem(position);
         // inflate the view if the existing view isn't being reused
         if(convertView == null)
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
+            tempView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
 
         // get and post data in field
         TextView title = (TextView) convertView.findViewById(R.id.title);
@@ -33,6 +34,6 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         description.setText(post.getDescription());
 
         // Return the rendered view
-        return convertView;
+        return tempView;
     }
 }
