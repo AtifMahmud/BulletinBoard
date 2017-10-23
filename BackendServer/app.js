@@ -27,7 +27,7 @@ app.get("/api/docs", function(req,resp) {
 
 var port = 8000;
 app.listen(port);
-console.log("Running on port " + port);
+// console.log("Running on port " + port);  // for debugging purposes
 
 // Export the app
 module.exports = app;

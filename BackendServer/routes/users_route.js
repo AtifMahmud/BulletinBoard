@@ -12,7 +12,7 @@ router.get("/all/", function (req, resp) {
             resp.json(users);
             resp.end();
         }
-    })
+    });
 });
 
 router.post("/", function (req, resp) {
@@ -33,7 +33,9 @@ router.get("/id=:_id", function (req, resp) {
     var id = req.params._id;
 
     Users.getUserById(id, function (err, user) {
-        if(err) throw err;
+        if(err){
+            throw err;
+        }
         resp.json(user);
     });
 

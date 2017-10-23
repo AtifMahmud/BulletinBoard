@@ -85,5 +85,5 @@ module.exports.findById = function (id, cb) {
  */
 module.exports.clearAll = function (cb) {
 
-    Posts.remove({}, cb)
+    Posts.remove({}, cb);
 };

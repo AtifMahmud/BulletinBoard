@@ -10,10 +10,11 @@ router.post("/", function (req, resp) {
     Posts.addPosting(post, function (err, post) {
         if(err) {
             resp.json({success:false});
-        }else
+        }else{
             resp.json(
                 {success:true, post_id:post._id}
             );
+
     });
 });
 
@@ -41,11 +42,14 @@ router.post("/update/id=:id", function (req, resp) {
     var updates = req.body;
 
     Posts.updateFields(id, updates, function (err) {
-        if(err) resp.json({success:false});
+        if(err){
+             resp.json({success:false});
+        }
+
         else{
             resp.json({success:true});
         }
-    })
+    });
 
 });
 
