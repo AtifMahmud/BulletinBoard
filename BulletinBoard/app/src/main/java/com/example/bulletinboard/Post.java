@@ -28,6 +28,17 @@ public class Post {
     public Post(){}
 
     public Post(String title, String description, boolean showPhone, boolean showEmail){
+        //TODO: Fix this
+        /*
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String date = df.format(c.getTime());
+         */
+        this(title, description, showPhone, showEmail, date);
+
+    }
+
+    public Post(String title, String description, boolean showPhone, boolean showEmail, String date){
         this.title = title;
         this.description = description;
         this.showPhone = showPhone;
