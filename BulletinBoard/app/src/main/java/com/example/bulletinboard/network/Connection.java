@@ -15,11 +15,16 @@ import com.android.volley.toolbox.Volley;
 public final class Connection{
     private final RequestQueue requestQueue;
     private static Connection instance;
+    private final  String BASE_URL = "http://104.197.33.114:8000";
 
     private Connection(Context context){
 
         requestQueue = Volley.newRequestQueue(context);
         requestQueue.start();
+    }
+
+    public String getBaseUrl(){
+        return BASE_URL;
     }
 
     public synchronized static Connection get(Context context) {

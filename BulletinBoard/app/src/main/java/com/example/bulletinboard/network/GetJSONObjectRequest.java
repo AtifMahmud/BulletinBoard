@@ -19,7 +19,7 @@ public class GetJSONObjectRequest implements Request {
 
     private GetJSONObjectRequest(String url, VolleyCallback<JSONObject> callback) {
         connection = Connection.get();
-        this.url = url;
+        this.url = connection.getBaseUrl() + url;
         this.callback = callback;
         this.status = Status.INITIALISED;
     }
@@ -45,6 +45,10 @@ public class GetJSONObjectRequest implements Request {
     }
 
     public static GetJSONObjectRequest getAllPosts(VolleyCallback<JSONObject> callback){
-        return new GetJSONObjectRequest("http://104.197.33.114:8000/api/posts/all",callback);
+        return new GetJSONObjectRequest("/api/posts/all",callback);
+    }
+
+    public static GetJSONObjectRequest getUser(VolleyCallback<JSONObject> callback, String id){
+        return new GetJSONObjectRequest("/api/users/id="+id,callback);
     }
 }
