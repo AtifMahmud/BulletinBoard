@@ -62,6 +62,7 @@ public class Posts {
 
                 for (int i = 0; i < data.length(); i++) {
                     Post p;
+                    //TODO: Not sure what to change here now that there's some more post fields
                     p = new Post(data.getJSONObject(i).getString("title"), data.getJSONObject(i).getString("description"));
                     postList.add(p);
 
