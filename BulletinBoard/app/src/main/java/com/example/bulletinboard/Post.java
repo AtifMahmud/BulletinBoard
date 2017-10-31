@@ -1,7 +1,9 @@
 package com.example.bulletinboard;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Class: Post
@@ -28,13 +30,7 @@ public class Post {
     public Post(){}
 
     public Post(String title, String description, boolean showPhone, boolean showEmail){
-        //TODO: Fix this
-        /*
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        String date = df.format(c.getTime());
-         */
-        this(title, description, showPhone, showEmail, date);
+        this(title, description, showPhone, showEmail, getCurrentDateFormated());
 
     }
 
@@ -43,9 +39,8 @@ public class Post {
         this.description = description;
         this.showPhone = showPhone;
         this.showEmail = showEmail;
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        this.date = df.format(c.getTime());
+        this.date = formatDate(date);
+
     }
 
     public Post(String title, String description){
@@ -74,5 +69,28 @@ public class Post {
     public String getEmail() { return this.email; }
 
     public String getPhone() { return this.phone; }
+
+    /**
+     * Helper method to get the current date formated correctly for the constructor
+     * @return
+     */
+    private static String getCurrentDateFormated(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        return df.format(c.getTime());
+    }
+
+    private static String formatDate(String date){
+        SimpleDateFormat serverFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat clientFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        try {
+            Date d = serverFormat.parse(date);
+            return clientFormat.format(d);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
 }
