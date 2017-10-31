@@ -1,5 +1,6 @@
 package com.example.bulletinboard;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.example.bulletinboard.network.GetJSONObjectRequest;
@@ -10,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
  * Class: Posts
@@ -71,6 +74,7 @@ public class Posts {
                     postList.add(p);
 
                 }
+
             }
         } catch (org.json.JSONException e) {
             e.printStackTrace();
@@ -105,4 +109,5 @@ public class Posts {
         //while (request.getStatus() != Status.SUCCESS || request.getStatus() != Status.ERROR);
         return postList;
     }
+
 }

@@ -6,19 +6,18 @@
     android:background="@color/colorPrimaryDark"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
     android:textColor="#BD1255"
     tools:context="com.example.bulletinboard.ShowPost">
 
     <ListView
+        android:id="@+id/post_list"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/post_list"
-        android:background="@color/colorPrimary"
+        android:background="?attr/colorBackgroundFloating"
         android:divider="@color/colorPrimaryDark"
-        android:dividerHeight="5dp">
-    </ListView>
+        android:dividerHeight="5dp"></ListView>
 </LinearLayout>
