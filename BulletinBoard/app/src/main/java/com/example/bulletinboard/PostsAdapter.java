@@ -28,10 +28,17 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             tempView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
 
         // get and post data in field
-        TextView title = (TextView) convertView.findViewById(R.id.title);
-        TextView description = (TextView) convertView.findViewById(R.id.description);
+        TextView title = (TextView) tempView.findViewById(R.id.title);
+        TextView description = (TextView) tempView.findViewById(R.id.description);
+        TextView showPhone = (TextView) tempView.findViewById(R.id.showPhone);
+        TextView showEmail = (TextView) tempView.findViewById(R.id.showEmail);
+        TextView date = (TextView) tempView.findViewById(R.id.date);
+
         title.setText(post.getTitle());
         description.setText(post.getDescription());
+        showPhone.setText(Boolean.toString(post.getShowPhone()));
+        showEmail.setText(Boolean.toString(post.getShowEmail()));
+        date.setText(post.getDate());
 
         // Return the rendered view
         return tempView;

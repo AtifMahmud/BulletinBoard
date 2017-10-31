@@ -63,6 +63,26 @@
                 android:inputType="text"
                 android:textSize="20dip" />
 
+            <ToggleButton
+                android:id="@+id/showPhoneButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:textOff="Don't Show Phone"
+                android:textOn="Show Phone"
+                android:checked="true"
+                />
+
+            <ToggleButton
+                android:id="@+id/showEmailButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:textOff="Don't Show Email"
+                android:textOn="Show Email"
+                android:checked="true"
+                />
+
             <Button
                 android:id="@+id/button_finish"
                 style="@style/Widget.AppCompat.Button.Colored"

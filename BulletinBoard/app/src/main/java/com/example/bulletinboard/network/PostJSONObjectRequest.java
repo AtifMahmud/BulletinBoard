@@ -52,6 +52,9 @@ public class PostJSONObjectRequest implements Request {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("user_id","temp user");
         params.put("title", p.getTitle());
+        params.put("date",p.getDate());
+        params.put("showEmail", Boolean.toString(p.getShowEmail()));
+        params.put("showPost", Boolean.toString(p.getShowPhone()));
         params.put("description", p.getDescription());
 
         return new PostJSONObjectRequest("http://104.197.33.114:8000/api/posts/",callback,new JSONObject(params));
