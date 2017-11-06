@@ -40,7 +40,7 @@ router.post('/update/id=:id', function (req, resp) {
 
     var updates = req.body;
 
-    Posts.updateFields(id, updates, function (err) {
+    Posts.updateFields(id, "", updates, function (err) {
         if(err) resp.json({success:false});
         else{
             resp.json({success:true});
