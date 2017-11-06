@@ -1,24 +1,25 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var Posts = require('../models/posts_model');
+var Posts = require("../models/posts_model");
 
 // Create a new post
-router.post('/', function (req, resp) {
+router.post("/", function (req, resp) {
 
     var post = req.body;
 
     Posts.addPosting(post, function (err, post) {
         if(err) {
             resp.json({success:false});
-        }else
+        }else{
             resp.json(
                 {success:true, post_id:post._id}
             );
+        }
     });
 });
 
 // Get a specific post by id
-router.get('/id=:id', function (req, resp) {
+router.get("/id=:id", function (req, resp) {
 
     var id = req.params.id;
 
@@ -29,12 +30,12 @@ router.get('/id=:id', function (req, resp) {
             resp.json({success:true, post:post});
         }
 
-    })
+    });
 
 
 });
 
-router.post('/update/id=:id', function (req, resp) {
+router.post("/update/id=:id", function (req, resp) {
 
     var id = req.params.id;
 
@@ -45,13 +46,13 @@ router.post('/update/id=:id', function (req, resp) {
         else{
             resp.json({success:true});
         }
-    })
+    });
 
 });
 
 
 // Get a list of all posts
-router.get('/all/', function (req, resp) {
+router.get("/all/", function (req, resp) {
     Posts.getAllPosts(function (err, posts) {
         if(err) {
             resp.json({success:false});
@@ -69,7 +70,7 @@ router.get('/all/', function (req, resp) {
 
 
 // Clear all posts (For development, not production)
-router.get('/clear', function (req, resp) {
+router.get("/clear", function (req, resp) {
 
     Posts.clearAll(function () {
 

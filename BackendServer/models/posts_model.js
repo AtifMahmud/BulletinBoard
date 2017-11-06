@@ -1,9 +1,12 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 
 const TESTING = true;
 
-// Post schema
+// Post schema 
+// Schema is the structure of the data
+// This is the post schema in json format (?)
+
 var schema = mongoose.Schema({
 
     user_id:{
@@ -20,7 +23,7 @@ var schema = mongoose.Schema({
     },
     showEmail:{
         type:Boolean,
-        default:false
+        default:false       // default value for the showEmail field
     },
     showPhone:{
         type:Boolean,
@@ -28,15 +31,15 @@ var schema = mongoose.Schema({
     },
     images:{
         type:Array,
-        default:[]
+        default:[]          // empty by default
     },
     date:{
         type:Date,
-        default:Date.now()
+        default:Date.now()  // today's date
     }
 });
 
-module.exports = mongoose.model('posts', schema);
+module.exports = mongoose.model("posts", schema);
 
 const Posts = module.exports;
 
@@ -82,5 +85,5 @@ module.exports.findById = function (id, cb) {
  */
 module.exports.clearAll = function (cb) {
 
-    Posts.remove({}, cb)
+    Posts.remove({}, cb);
 };
