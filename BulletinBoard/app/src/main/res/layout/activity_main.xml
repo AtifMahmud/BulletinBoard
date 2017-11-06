@@ -28,22 +28,24 @@
         android:layout_gravity="center">
 
         <Button
+            android:id="@+id/createPostButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:onClick="createPostScreen"
             android:padding="4dp"
-            android:text="Create New Post"
-            style="@style/Widget.AppCompat.Button.Colored"/>
+            android:text="Create New Post" />
 
         <Button
+            android:id="@+id/viewPostsButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:onClick="showPostScreen"
             android:padding="4dp"
-            android:text="View posts"
-            style="@style/Widget.AppCompat.Button.Colored"/>
+            android:text="View posts" />
 
     </LinearLayout>
 
