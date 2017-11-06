@@ -5,7 +5,7 @@ var email_config = require("../config/emailconfig");
 
 
 const TESTING = true;
-const SEND_EMAIL = true;
+const SEND_EMAIL = false;
 
 var schema = mongoose.Schema({
 
@@ -96,6 +96,9 @@ module.exports.sendRegistrationEmail = function (user) {
  */
 module.exports.registerUser = function (user, cb) {
 
+    if (!user.password) {
+        cb("No password provided", null);
+    }
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(user.password, salt);
     user.hash = hash;

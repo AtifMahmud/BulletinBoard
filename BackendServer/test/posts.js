@@ -41,7 +41,7 @@ describe('Posts Tests', function() {
                 title: "Oops, i forgot to add a user_id field.",
                 description: "Should fail",
                 showPhone: true,
-            }
+            };
             chai.request(server)
                 .post('/api/posts/')
                 .send(post)

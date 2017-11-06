@@ -9,7 +9,7 @@ router.get("/all/", function (req, resp) {
             throw err;
         }
         else{
-            resp.json(users);
+            resp.json({success:true, users:users});
             resp.end();
         }
     });
@@ -19,9 +19,9 @@ router.post("/", function (req, resp) {
 
     var user = req.body;
     Users.registerUser(user, function (err, user) {
-        if(err) resp.json(err);
+        if(err) resp.json({success:false, error:err});
         else {
-            resp.json(user);
+            resp.json({success:true, user:user});
             Users.sendRegistrationEmail(user);
         }
     });
@@ -34,9 +34,9 @@ router.get("/id=:_id", function (req, resp) {
 
     Users.getUserById(id, function (err, user) {
         if(err){
-            throw err;
+            resp.json({success:false, error:err});
         }
-        resp.json(user);
+        else resp.json({success:true, user:user});
     });
 
 });
@@ -50,6 +50,21 @@ router.get("/name=:name", function (req, resp) {
         if(err) throw err;
 
         resp.json(user);
+    });
+
+});
+
+router.post("/update/id=:id", function (req, resp) {
+
+    var id = req.params.id;
+
+    var updates = req.body;
+
+    Users.updateFields(id, "", updates, function (err) {
+        if(err) resp.json({success:false});
+        else{
+            resp.json({success:true});
+        }
     });
 
 });
