@@ -54,4 +54,12 @@
         android:layout_height="250dp"
         android:src="@drawable/icon"/>
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/registerUserButton"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:background="@android:color/holo_blue_light"
+        android:onClick="registerUserScreen"
+        android:text="Register" />
+
+</LinearLayout>

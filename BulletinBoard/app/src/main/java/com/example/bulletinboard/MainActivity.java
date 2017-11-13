@@ -25,4 +25,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ShowPost.class);
         startActivity(intent);
     }
+
+    public void registerUserScreen(View view){
+        Intent intent = new Intent(this, RegisterUser.class);
+        startActivity(intent);
+    }
 }
