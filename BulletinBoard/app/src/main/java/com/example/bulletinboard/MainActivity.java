@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.bulletinboard.network.Connection;
 
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void registerUserScreen(View view){
-        Intent intent = new Intent(this, RegisterUser.class);
-        startActivity(intent);
+         Intent intent = new Intent(this, RegisterNewUser.class);
+         startActivity(intent);
     }
+
 }
