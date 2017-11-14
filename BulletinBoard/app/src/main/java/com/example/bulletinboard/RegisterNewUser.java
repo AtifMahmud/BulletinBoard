@@ -23,7 +23,7 @@ public class RegisterNewUser extends AppCompatActivity {
     public void registerUser(View view){
         String name = ((EditText) findViewById(R.id.name)).getText().toString().toLowerCase();
         String firstName = ((EditText) findViewById(R.id.FirstName)).getText().toString().toLowerCase();
-        String email = ((EditText) findViewById(R.id.email)).getText().toString().toLowerCase();
+        String email = ((EditText) findViewById(R.id.emailText)).getText().toString().toLowerCase();
         String phone = ((EditText) findViewById(R.id.phone)).getText().toString().toLowerCase();
         User thisUser = new User(name, firstName, email, phone);
         Intent intent = new Intent(this, MainActivity.class);

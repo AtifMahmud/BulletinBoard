@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     android:weightSum="1"
     android:orientation="vertical"
     android:layout_weight="1">
@@ -40,7 +41,7 @@
         android:text="Email" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/emailText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -63,6 +64,7 @@
         android:id="@+id/button29"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:onClick="registerUser"
         android:text="Register" />
 </LinearLayout>
