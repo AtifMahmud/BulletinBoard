@@ -1,5 +1,6 @@
 package com.example.bulletinboard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -36,12 +37,14 @@ public class Posts {
         return posts;
     }
 
-    public void addPost(Post post){
+    public void addPost(Post post, Context context){
         postList.add(post);
         PostJSONObjectRequest request = PostJSONObjectRequest.post(new VolleyCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject response) {
-                Log.d("posted",response.toString());
+                Log.d("POST POSTED",response.toString());
+                Intent login = new Intent(context, ShowPost.class);
+                context.startActivity(login);
             }
 
             @Override
