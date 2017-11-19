@@ -50,7 +50,7 @@ var schema = mongoose.Schema({
 module.exports = mongoose.model("users", schema);
 const Users = module.exports;
 
-const WANTED_FIELDS = "_id first_name last_name email registration posts rating";
+const WANTED_FIELDS = "_id first_name last_name email registration posts rating num_ratings";
 
 /**
  * Sends a registration email to the email provided during registration
@@ -84,7 +84,7 @@ module.exports.sendRegistrationEmail = function (user) {
     // send mail with defined transport object
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
-         //   return console.log(error); // for debugging
+            console.log(error);
         }
     });
 };
@@ -190,6 +190,30 @@ module.exports.findUsersByName = function (name, cb) {
         WANTED_FIELDS,
         cb);
 
+};
+
+module.exports.addRating = function (id, token, rating, cb) {
+
+    rating = Math.floor(rating);
+    if (rating < 0 || rating > 5) cb("Invalid rating.", -1);
+    else
+        module.exports.getUserById(id, function (err, user) {
+            if (err || !user) cb("User not found", -1);
+            else {
+                var old_rating  = user.rating;
+                var num_ratings = user.num_ratings;
+
+                var new_rating = (old_rating*num_ratings + rating)/(num_ratings+1);
+                Users.updateFields(
+                    id,
+                    token,
+                    {rating:new_rating, num_ratings:num_ratings+1},
+                    function (err) {
+                        if (err) cb(err, -1);
+                        else     cb(err, new_rating);
+                    });
+            }
+        });
 };
 
 module.exports.clearAll =  function (cb){

@@ -60,13 +60,23 @@ router.post("/update/id=:id", function (req, resp) {
 
     var updates = req.body;
 
-    Users.updateFields(id, "", updates, function (err) {
+    Users.updateFields(id, "token", updates, function (err) {
         if(err) resp.json({success:false});
         else{
             resp.json({success:true});
         }
     });
 
+});
+
+router.get("/add_rating/id=:id&rating=:rating", function (req, resp) {
+    var id = req.params.id;
+    var rating = req.params.rating;
+
+    Users.addRating(id, "token" , rating, function (err, new_rating) {
+        if (err) resp.json({success:false, err:err});
+        else     resp.json({success:true , new_rating:new_rating});
+    })
 });
 
 // FOR TESTING. REMOVE LATER

@@ -8,7 +8,7 @@ router.post("/", function (req, resp) {
     var post = req.body;
 
     Posts.addPosting(post, function (err, post) {
-        if(err) {
+        if(err || !post) {
             resp.json({success:false});
         }else{
             resp.json(
@@ -24,7 +24,7 @@ router.get("/id=:id", function (req, resp) {
     var id = req.params.id;
 
     Posts.findById(id, function (err, post) {
-        if(err){
+        if(err || !post){
             resp.json({success:false});
         }else{
             resp.json({success:true, post:post});
@@ -54,7 +54,7 @@ router.post("/update/id=:id", function (req, resp) {
 // Get a list of all posts
 router.get("/all/", function (req, resp) {
     Posts.getAllPosts(function (err, posts) {
-        if(err) {
+        if(err || !posts) {
             resp.json({success:false});
         }
         else{
