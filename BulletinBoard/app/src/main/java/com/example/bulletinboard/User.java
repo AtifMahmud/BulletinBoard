@@ -16,12 +16,29 @@ public class User {
     private final String firstName;
     private final String email;
     private final String phone;
+    private double rating;
+    private int totalRating;
+    private int ratingCount;
 
     public User(String name, String firstName, String email, String phone){
         this.name = name;
         this.firstName = firstName;
         this.email = email;
         this.phone = phone;
+        this.rating = 0;
+        this.ratingCount = 0;
+        this.totalRating = 0;
+    }
+
+    public void updateRating(int newRating){
+        this.ratingCount++;
+        this.totalRating += newRating;
+        if (ratingCount != 0)
+            this.rating = totalRating/ratingCount;
+    }
+
+    public double getRating(){
+        return this.rating;
     }
 
     public User getUserById(String id){
