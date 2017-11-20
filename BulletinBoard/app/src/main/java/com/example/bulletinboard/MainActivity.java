@@ -37,4 +37,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void showSamplePost(View view){
+        Intent intent = new Intent(this, PostDisplayActivity.class);
+        Bundle b = new Bundle();
+        b.putString("id","5a13454662c6c404f9e99ddc");
+        intent.putExtras(b);
+        startActivity(intent);
+    }
+
 }

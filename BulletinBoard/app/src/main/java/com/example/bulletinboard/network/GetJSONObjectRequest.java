@@ -48,6 +48,10 @@ public class GetJSONObjectRequest implements Request {
         return new GetJSONObjectRequest("/api/posts/all",callback);
     }
 
+    public static GetJSONObjectRequest getPostById(String id, VolleyCallback<JSONObject> callback){
+        return new GetJSONObjectRequest("/api/posts/id="+id,callback);
+    }
+
     public static GetJSONObjectRequest getUser(VolleyCallback<JSONObject> callback, String id){
         return new GetJSONObjectRequest("/api/users/id="+id,callback);
     }

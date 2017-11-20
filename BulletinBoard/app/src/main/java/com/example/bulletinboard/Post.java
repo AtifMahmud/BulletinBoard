@@ -92,13 +92,13 @@ public class Post {
      */
     private static String getCurrentDateFormated() {
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         return df.format(c.getTime());
     }
 
     private static String formatDate(String date) {
         SimpleDateFormat serverFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat clientFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat clientFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
             Date d = serverFormat.parse(date);
             return clientFormat.format(d);
