@@ -49,8 +49,8 @@ router.get("/id=:_id", function (req, resp) {
     var id = req.params._id;
 
     Users.getUserById(id, function (err, user) {
-        if(err){
-            resp.json({success:false, error:err});
+        if(err || !user){
+            resp.json({success:false, error:"User not found"});
         }
         else resp.json({success:true, user:user});
     });
@@ -61,11 +61,10 @@ router.get("/name=:name", function (req, resp) {
 
     var name = req.params.name;
 
-    Users.findUsersByName(name, function (err, user) {
+    Users.findUsersByName(name, function (err, users) {
 
-        if(err) throw err;
-
-        resp.json(user);
+        if(err) resp.json({success:false});
+        resp.json(!users ? [] : users);
     });
 
 });
