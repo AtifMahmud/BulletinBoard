@@ -29,6 +29,14 @@ var schema = mongoose.Schema({
         required:true,
         type:String
     },
+    token:{
+        type:String,
+        default:"uninitialized"
+    },
+    token_date:{
+        type:Date,
+        default:Date.now()
+    },
     registration:{
         type:Date,
         default: Date.now()
@@ -98,15 +106,22 @@ module.exports.registerUser = function (user, cb) {
 
     if (!user.password) {
         cb("No password provided", null);
+    }else {
+        Users.findOne({email:user.email}, function (err, res) {
+            if (err || !res) {
+                var salt = bcrypt.genSaltSync(10);
+                var hash = bcrypt.hashSync(user.password, salt);
+                user.hash = hash;
+                Users.create(user, function (err, user) {
+
+                    cb(err, user);
+
+                });
+            } else {
+                cb("Email taken", null);
+            }
+        })
     }
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(user.password, salt);
-    user.hash = hash;
-    Users.create(user, function (err, user) {
-
-        cb(err, user);
-
-    });
 };
 
 /**
@@ -138,7 +153,7 @@ module.exports.authenticateByEmail = function (email, pass, cb) {
 
     Users.findOne({email:email}, function (err, user) {
         if(err  || !user) {
-            cb(err, false);
+            cb(err, false, -1);
         }else {
             bcrypt.compare(pass, user.hash, function (err, status) {
                 cb(err, status, user._id);
@@ -156,12 +171,13 @@ module.exports.authenticateByEmail = function (email, pass, cb) {
  * @param cb - callback function
  */
 module.exports.updateFields = function (id, token, updates, cb){
-
-    Users.updateOne(
-        TESTING ? {_id:id} : {_id:id, token:token},
-        { $set: updates },
-        cb
-    );
+    if (updates.token || updates.token_date || updates.hash || updates.registration) cb("Nice try");
+    else
+        Users.updateOne(
+            TESTING ? {_id:id} : {_id:id, token:token},
+            { $set: updates },
+            cb
+        );
 
 };
 
