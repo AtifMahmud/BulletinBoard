@@ -71,11 +71,9 @@ describe('Users Tests', function() {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('success');
+                    res.body.should.have.property('_id');
+                    res.body.should.have.property('token');
                     res.body.success.should.eql(true);
-                    res.body.user.should.be.a('object');
-                    res.body.user.should.have.property('email').eql(user.email);
-                    res.body.user.should.have.property('first_name').eql(user.first_name);
-                    res.body.user.should.have.property('last_name').eql(user.last_name);
                     done();
                 });
         });

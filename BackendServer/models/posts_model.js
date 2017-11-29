@@ -56,6 +56,10 @@ module.exports.getAllPosts = function (cb) {
 
 };
 
+module.exports.getUserPosts = function (uid, cb) {
+    Posts.find({user_id:uid}, cb);
+};
+
 module.exports.updateFields = function (id, token, updates, cb){
 
     Posts.updateOne(

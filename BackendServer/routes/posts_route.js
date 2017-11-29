@@ -50,6 +50,14 @@ router.post("/update/id=:id", function (req, resp) {
 
 });
 
+router.get("/user_id=:uid", function (req, resp) {
+    var uid = req.params.uid;
+    Posts.getUserPosts(uid, function (err, posts) {
+        if (err || !posts) resp.json({success:false, err:err});
+        else resp.json({success:true, user_id:uid, posts:posts});
+    })
+});
+
 
 // Get a list of all posts
 router.get("/all/", function (req, resp) {
