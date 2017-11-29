@@ -12,19 +12,21 @@ import org.json.JSONObject;
  */
 
 public class User {
-    private final String name;
     private final String firstName;
+    private final String lastName;
     private final String email;
     private final String phone;
+    private String password;
     private double rating;
     private int totalRating;
     private int ratingCount;
 
-    public User(String name, String firstName, String email, String phone){
-        this.name = name;
+    public User(String firstName, String lastName, String email, String phone, String password){
         this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.phone = phone;
+        this.password = password;
         this.rating = 0;
         this.ratingCount = 0;
         this.totalRating = 0;
@@ -37,9 +39,6 @@ public class User {
             this.rating = totalRating/ratingCount;
     }
 
-    public double getRating(){
-        return this.rating;
-    }
 
     public User getUserById(String id){
 
@@ -56,6 +55,16 @@ public class User {
 
         request.send();
 
-        return new User("","","","");
+        return new User("","","","","");
     }
+
+    public String getFirstName() { return this.firstName;}
+    public String getLastName() { return  this.lastName;}
+    public String getEmail() { return this.email;}
+    public String getPhone () { return this.phone;}
+    public String getPassword () { return this.password;}
+    public double getRating () { return  this.rating; }
+    public int getRatingCount () { return  ratingCount; }
+    public int getTotalRating () { return  totalRating; }
+
 }
