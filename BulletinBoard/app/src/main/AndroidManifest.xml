@@ -31,7 +31,7 @@
         <activity android:name=".LoginUser" />
         <activity
             android:name=".PostDisplayActivity"
-            android:label="Post"></activity>
+            android:label="Post" />
     </application>
 
 </manifest>
