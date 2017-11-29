@@ -1,8 +1,11 @@
 package com.example.bulletinboard.network;
 
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.bulletinboard.Post;
+import android.util.Log;
 
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.bulletinboard.LoginUser;
+import com.example.bulletinboard.Post;
+import com.example.bulletinboard.User;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -36,6 +39,7 @@ public class PostJSONObjectRequest implements Request {
                 },
                 e -> {
                     status = Status.ERROR;
+                    Log.d("ERROR WITH POST",e.toString());
                     callback.onFailure();
                 });
 
@@ -58,5 +62,19 @@ public class PostJSONObjectRequest implements Request {
         params.put("description", p.getDescription());
 
         return new PostJSONObjectRequest("http://104.197.33.114:8000/api/posts/",callback,new JSONObject(params));
+    }
+
+
+
+    public static PostJSONObjectRequest post(VolleyCallback<JSONObject> callback, User u){
+        HashMap<String, String> params = new HashMap<String, String>();
+       // params.put("user_id","temp user");
+        params.put("first_name", u.getFirstName());
+        params.put("last_name",u.getLastName());
+        params.put("email", u.getEmail());
+        params.put("phone", u.getPhone());
+        params.put("password", u.getPassword());
+
+        return new PostJSONObjectRequest("http://104.197.33.114:8000/api/users/",callback,new JSONObject(params));
     }
 }
