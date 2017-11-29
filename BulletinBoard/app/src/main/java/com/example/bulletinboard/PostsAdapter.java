@@ -26,12 +26,12 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         Button btn;
     }*/
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         View tempView = convertView;
         // get the item at this position
         Post post = getItem(position);
         // inflate the view if the existing view isn't being reused
-        if(convertView == null)
+        if (convertView == null)
             tempView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
 
         // get and post data in field
@@ -54,8 +54,6 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
         // Return the rendered view
         return tempView;
-
     }
-
 
 }

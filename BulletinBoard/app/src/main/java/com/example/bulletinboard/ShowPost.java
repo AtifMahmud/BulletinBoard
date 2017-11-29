@@ -24,10 +24,10 @@ public class ShowPost extends AppCompatActivity {
 
     TabHost tabHost;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_post);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_show_post);
 
         TabHost host = (TabHost)findViewById(R.id.tabHost);
         host.setup();
@@ -108,29 +108,29 @@ public class ShowPost extends AppCompatActivity {
         PostsAdapter adapter = new PostsAdapter(this, posts.getPosts());
         listView.setAdapter(adapter);
 
-        /*listView.setOnItemClickListener(new OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("IS THIS WORKING", "YES");
+                Post clickedPost = adapter.getItem(position);
                 Intent intent = new Intent(ShowPost.this, PostDisplayActivity.class);
                 Bundle b = new Bundle();
-                b.putString("id","5a13454662c6c404f9e99ddc");
+                b.putString("id", clickedPost.getId());
                 intent.putExtras(b);
                 startActivity(intent);
             }
-        });*/
+        });
     }
-
+    /*
     public void showSamplePost(View view){
         Intent intent = new Intent(this, PostDisplayActivity.class);
         Bundle b = new Bundle();
         b.putString("id","5a13454662c6c404f9e99ddc");
         intent.putExtras(b);
         startActivity(intent);
-    }
+    }*/
 
     public void createPostScreen(View view){
         Intent intent = new Intent(this, CreateNewPost.class);
         startActivity(intent);
     }
-
-
 }
