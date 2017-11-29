@@ -35,6 +35,8 @@ router.get("/id=:id", function (req, resp) {
 
 });
 
+// Update a post
+// Format: {updates: {key1:new_val, key2:new_val2}}
 router.post("/update/id=:id", function (req, resp) {
 
     var id = req.params.id;
@@ -50,6 +52,7 @@ router.post("/update/id=:id", function (req, resp) {
 
 });
 
+// Get posts by user_id
 router.get("/user_id=:uid", function (req, resp) {
     var uid = req.params.uid;
     Posts.getUserPosts(uid, function (err, posts) {

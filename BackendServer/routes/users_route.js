@@ -3,6 +3,7 @@ var crypto = require("crypto");
 var router = express.Router();
 var Users = require("../models/users_model");
 
+// Get all users
 router.get("/all/", function (req, resp) {
     Users.getUsers(function (err, users) {
         if(err) {
@@ -16,6 +17,7 @@ router.get("/all/", function (req, resp) {
     });
 });
 
+// Make a new user
 router.post("/", function (req, resp) {
 
     var user = req.body;
@@ -44,6 +46,8 @@ router.post("/", function (req, resp) {
 
 });
 
+
+// Get a user by id
 router.get("/id=:_id", function (req, resp) {
 
     var id = req.params._id;
@@ -59,6 +63,7 @@ router.get("/id=:_id", function (req, resp) {
 
 });
 
+// Get users by name
 router.get("/name=:name", function (req, resp) {
 
     var name = req.params.name;
@@ -71,6 +76,7 @@ router.get("/name=:name", function (req, resp) {
 
 });
 
+// Update user by id.
 router.post("/update/id=:id", function (req, resp) {
 
     var id = req.params.id;
@@ -86,7 +92,8 @@ router.post("/update/id=:id", function (req, resp) {
 
 });
 
-router.get("/add_rating/id=:id&rating=:rating", function (req, resp) {
+// Add rating to user.
+router.post("/add_rating/id=:id&rating=:rating", function (req, resp) {
     var id = req.params.id;
     var rating = req.params.rating;
 
@@ -107,7 +114,7 @@ router.post('/authenticate/id', function (req, resp) {
 
     Users.authenticateByID(_id, pass, function (err, status) {
 
-        if(!err && status === true){
+        if(!err && status === true) {
             // Generate a token and include it in the response
             var token = "uninitialized";
             crypto.randomBytes(48, function(err, buffer) {
