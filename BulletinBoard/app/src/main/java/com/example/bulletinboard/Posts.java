@@ -71,6 +71,7 @@ public class Posts {
                     JSONObject post = data.getJSONObject(i);
                     p = new Post(post.getString("title"),
                             post.getString("description"),
+                            post.getString("_id"),
                             post.getString("user_id"),
                             post.getBoolean("showPhone"),
                             post.getBoolean("showEmail"),

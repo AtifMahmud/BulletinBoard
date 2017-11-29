@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
@@ -25,11 +26,11 @@ public class CreateNewPost extends AppCompatActivity {
     public void createPost(View view) {
         String title = ((EditText) findViewById(R.id.title)).getText().toString().toLowerCase();
         String description = ((EditText) findViewById(R.id.description)).getText().toString().toLowerCase();
-        ToggleButton showPhone = (ToggleButton) findViewById(R.id.showPhoneButton);
-        ToggleButton showEmail = (ToggleButton) findViewById(R.id.showEmailButton);
+        CheckBox showPhone = (CheckBox) findViewById(R.id.showPhoneButton);
+        CheckBox showEmail = (CheckBox) findViewById(R.id.showEmailButton);
         boolean showPhoneState = showPhone.isChecked();
         boolean showEmailState = showEmail.isChecked();
-        Post thisPost = new Post(title, description, "testUser" , showPhoneState, showEmailState); //TODO CHANGE THAT
+        Post thisPost = new Post(title, description, "tempId", "tempUser" , showPhoneState, showEmailState); //TODO CHANGE THAT
 
         Posts posts = Posts.getInstance();
         posts.addPost(thisPost, context);

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorBackground"
     android:gravity="center"
     android:orientation="vertical"
     android:paddingBottom="16dp"
@@ -25,8 +25,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/viewPostsButton"
@@ -43,13 +43,13 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="250dp"
-        android:src="@drawable/icon"/>
+        android:src="@drawable/icon" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/loginUserButton"
