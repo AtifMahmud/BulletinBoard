@@ -41,10 +41,10 @@ var schema = mongoose.Schema({
         type:Date,
         default: Date.now()
     },
-    posts:{
-        type:Array,
-        default:[]
-    },
+    // posts:{
+    //     type:Array,
+    //     default:[]
+    // },
     rating:{
         type:Number,
         default:0
@@ -58,7 +58,7 @@ var schema = mongoose.Schema({
 module.exports = mongoose.model("users", schema);
 const Users = module.exports;
 
-const WANTED_FIELDS = "_id first_name last_name email registration posts rating num_ratings";
+const WANTED_FIELDS = "_id first_name last_name email registration rating num_ratings";
 
 /**
  * Sends a registration email to the email provided during registration
