@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.bulletinboard.network.PostJSONObjectRequest;
@@ -46,7 +47,15 @@ public class RegisterNewUser extends AppCompatActivity {
             @Override
             public void onSuccess(JSONObject response) {
                 Log.d("USER POSTED",response.toString());
-                Intent intent = new Intent(context, MainActivity.class);
+
+                Context context = getApplicationContext();
+                CharSequence text = "Account created";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+
+                Intent intent = new Intent(context, LoginUser.class);
                 startActivity(intent);
             }
 

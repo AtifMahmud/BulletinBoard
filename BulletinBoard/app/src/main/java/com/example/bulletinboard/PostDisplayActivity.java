@@ -48,6 +48,7 @@ public class PostDisplayActivity extends AppCompatActivity {
 
                     Post p = new Post(data.getString("title"),
                             data.getString("description"),
+                            data.getString("user_id"),
                             data.getBoolean("showPhone"),
                             data.getBoolean("showEmail"),
                             data.getString("date"));

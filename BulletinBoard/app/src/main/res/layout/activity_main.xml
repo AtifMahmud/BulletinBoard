@@ -15,10 +15,11 @@
 
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-thin"
-        android:text="Bulletin Board"
+        android:text="Welcome !"
         android:textSize="50dp" />
 
     <LinearLayout
@@ -26,16 +27,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center">
-
-        <Button
-            android:id="@+id/createPostButton"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:onClick="createPostScreen"
-            android:padding="4dp"
-            android:text="Create New Post" />
 
         <Button
             android:id="@+id/viewPostsButton"
@@ -61,27 +52,20 @@
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/registerUserButton"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="registerUserScreen"
-            android:text="Register" />
-        <Button
             android:id="@+id/loginUserButton"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
+            android:layout_width="138dp"
             android:layout_height="wrap_content"
             android:onClick="loginUserScreen"
             android:text="Login" />
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:id="@+id/registerUserButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="131dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="showSamplePost"
-            android:text="Show Post" />
+            android:onClick="registerUserScreen"
+            android:text="Register" />
 
     </LinearLayout>
 

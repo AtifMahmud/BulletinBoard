@@ -1,6 +1,9 @@
 package com.example.bulletinboard.network;
 
+import android.util.Log;
+
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.bulletinboard.LoginUser;
 import com.example.bulletinboard.Post;
 import com.example.bulletinboard.User;
 import org.json.JSONObject;
@@ -36,6 +39,7 @@ public class PostJSONObjectRequest implements Request {
                 },
                 e -> {
                     status = Status.ERROR;
+                    Log.d("ERROR WITH POST",e.toString());
                     callback.onFailure();
                 });
 

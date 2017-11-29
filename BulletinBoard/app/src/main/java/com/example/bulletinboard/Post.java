@@ -30,14 +30,15 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String description, boolean showPhone, boolean showEmail) {
-        this(title, description, showPhone, showEmail, getCurrentDateFormated());
+    public Post(String title, String description, String userId, boolean showPhone, boolean showEmail) {
+        this(title, description, userId, showPhone, showEmail, getCurrentDateFormated());
 
     }
 
-    public Post(String title, String description, boolean showPhone, boolean showEmail, String date) {
+    public Post(String title, String description, String userId, boolean showPhone, boolean showEmail, String date) {
         this.title = title;
         this.description = description;
+        this.user_id = userId;
         this.showPhone = showPhone;
         this.showEmail = showEmail;
         this.date = formatDate(date);

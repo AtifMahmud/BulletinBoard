@@ -29,7 +29,7 @@ public class CreateNewPost extends AppCompatActivity {
         ToggleButton showEmail = (ToggleButton) findViewById(R.id.showEmailButton);
         boolean showPhoneState = showPhone.isChecked();
         boolean showEmailState = showEmail.isChecked();
-        Post thisPost = new Post(title, description, showPhoneState, showEmailState);
+        Post thisPost = new Post(title, description, "testUser" , showPhoneState, showEmailState); //TODO CHANGE THAT
 
         Posts posts = Posts.getInstance();
         posts.addPost(thisPost, context);
