@@ -17,7 +17,7 @@
         android:id="@+id/post_list"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="?attr/colorBackgroundFloating"
-        android:divider="@color/colorPrimaryDark"
+        android:background="@color/colorPrimaryDark"
+        android:divider="@color/colorPrimary"
         android:dividerHeight="5dp"></ListView>
 </LinearLayout>
