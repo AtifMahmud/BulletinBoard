@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var bcrypt = require("bcrypt");
 var nodemailer = require("nodemailer");
 var email_config = require("../config/emailconfig");
+var Posts = require("../models/posts_model");
 
 
 const TESTING = true;
@@ -41,6 +42,10 @@ var schema = mongoose.Schema({
         type:Date,
         default: Date.now()
     },
+    favourites:{
+        type:Object,
+        default:{}
+    },
     // posts:{
     //     type:Array,
     //     default:[]
@@ -58,7 +63,7 @@ var schema = mongoose.Schema({
 module.exports = mongoose.model("users", schema);
 const Users = module.exports;
 
-const WANTED_FIELDS = "_id first_name last_name email registration rating num_ratings";
+const WANTED_FIELDS = "_id first_name last_name email registration rating num_ratings favourites";
 
 /**
  * Sends a registration email to the email provided during registration
@@ -113,7 +118,7 @@ module.exports.registerUser = function (user, cb) {
                 var hash = bcrypt.hashSync(user.password, salt);
                 user.hash = hash;
                 Users.create(user, function (err, user) {
-
+                    user.favourites = [];
                     cb(err, user);
 
                 });
@@ -206,6 +211,34 @@ module.exports.findUsersByName = function (name, cb) {
         WANTED_FIELDS,
         cb);
 
+};
+
+module.exports.favouritePost = function(user_id, post_id, cb) {
+    Users.getUserById(user_id, function (err, user) {
+        if (err || !user) {
+            cb("User not found");
+        } else {
+            console.log(user);
+            var favs = user.favourites;
+            console.log(favs);
+            favs[post_id] = true;
+            Users.updateFields(user_id, "", {favourites:favs}, cb);
+        }
+    });
+};
+
+module.exports.getUserFavourites = function (uid, cb) {
+
+    Users.getUserById(uid, function (err, user) {
+
+        if (err || !user) cb("User not found.", null);
+        else {
+            var fav_ids = Object.keys(user.favourites);
+            Posts.find({
+                _id : { $in: fav_ids}
+            }, cb);
+        }
+    });
 };
 
 module.exports.addRating = function (id, token, rating, cb) {

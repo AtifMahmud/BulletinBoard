@@ -9,7 +9,7 @@ router.get("/all/", function (req, resp) {
             resp.writeHead(404, {"Content-Type": "application/json"});
             throw err;
         }
-        else{
+        else {
             resp.json({success:true, users:users});
             resp.end();
         }
@@ -52,7 +52,9 @@ router.get("/id=:_id", function (req, resp) {
         if(err || !user){
             resp.json({success:false, error:"User not found"});
         }
-        else resp.json({success:true, user:user});
+        else {
+            resp.json({success:true, user:user});
+        }
     });
 
 });
@@ -153,6 +155,33 @@ router.post('/authenticate/email', function (req, resp) {
     });
 });
 
+router.post("/favourite/user_id=:uid&post_id=:pid", function (req, resp) {
+
+    var uid = req.params.uid;
+    var pid = req.params.pid;
+    
+    Users.favouritePost(uid, pid, function (err) {
+        if (err) {
+            resp.json({success:false, err:err});
+        } else {
+            resp.json({success:true, user_id:uid, post_id:pid});
+        }
+    })
+});
+
+router.get("/favourites/user_id=:uid", function (req, resp) {
+
+    var uid = req.params.uid;
+
+    Users.getUserFavourites(uid, function (err, favs) {
+        if (err || !favs) {
+            resp.json({success:false, err:err});
+        } else {
+            resp.json({success:true, favourites:favs});
+        }
+    });
+
+});
 
 
 // FOR TESTING. REMOVE LATER
