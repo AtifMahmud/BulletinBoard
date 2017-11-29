@@ -1,5 +1,6 @@
 package com.example.bulletinboard;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,13 +49,6 @@ public class ShowPost extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.post_list);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("ITEM", "ITEM CLICKED");
-            }
-        });
-
         updatePosts();
     }
 
@@ -80,6 +74,29 @@ public class ShowPost extends AppCompatActivity {
     private void displayPosts(Posts posts){
         PostsAdapter adapter = new PostsAdapter(this, posts.getPosts());
         listView.setAdapter(adapter);
+
+        /*listView.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ShowPost.this, PostDisplayActivity.class);
+                Bundle b = new Bundle();
+                b.putString("id","5a13454662c6c404f9e99ddc");
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });*/
+    }
+
+    public void showSamplePost(View view){
+        Intent intent = new Intent(this, PostDisplayActivity.class);
+        Bundle b = new Bundle();
+        b.putString("id","5a13454662c6c404f9e99ddc");
+        intent.putExtras(b);
+        startActivity(intent);
+    }
+
+    public void createPostScreen(View view){
+        Intent intent = new Intent(this, CreateNewPost.class);
+        startActivity(intent);
     }
 
 
