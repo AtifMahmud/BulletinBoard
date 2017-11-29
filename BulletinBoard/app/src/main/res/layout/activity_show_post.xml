@@ -54,11 +54,13 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textView2"
+                    <ListView
+                        android:id="@+id/post_list_favs"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Test Text 2" />
+                        android:layout_height="match_parent"
+                        android:background="?attr/colorBackgroundFloating"
+                        android:divider="@color/colorPrimaryDark"
+                        android:dividerHeight="5dp"></ListView>
                 </LinearLayout>
 
                 <LinearLayout
@@ -67,11 +69,13 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textView5"
+                    <ListView
+                        android:id="@+id/post_list_mine"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Test Text 3" />
+                        android:layout_height="match_parent"
+                        android:background="?attr/colorBackgroundFloating"
+                        android:divider="@color/colorPrimaryDark"
+                        android:dividerHeight="5dp"></ListView>
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

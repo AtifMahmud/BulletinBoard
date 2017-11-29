@@ -76,4 +76,8 @@ public class PostDisplayActivity extends AppCompatActivity {
     public static void displayTitle(Post p, Toolbar tb){
         tb.setTitle(p.getTitle());
     }
+
+    public static void addToFavs(){
+
+    }
 }

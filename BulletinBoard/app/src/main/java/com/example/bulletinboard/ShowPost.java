@@ -18,6 +18,9 @@ import org.json.JSONObject;
 public class ShowPost extends AppCompatActivity {
 
     private ListView listView;
+    private ListView favListView;
+    private ListView myListView;
+
     TabHost tabHost;
 
     @Override
@@ -47,13 +50,8 @@ public class ShowPost extends AppCompatActivity {
         host.addTab(spec);
 
         listView = (ListView) findViewById(R.id.post_list);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("ITEM", "ITEM CLICKED");
-            }
-        });
+        favListView = (ListView) findViewById(R.id.post_list_favs);
+        myListView = (ListView) findViewById(R.id.post_list_mine);
 
         updatePosts();
     }
@@ -65,7 +63,7 @@ public class ShowPost extends AppCompatActivity {
             @Override
             public void onSuccess(JSONObject response) {
                 posts.addPosts(response);
-                displayPosts(posts);
+                displayPosts(posts, listView);
             }
 
             @Override
@@ -74,10 +72,38 @@ public class ShowPost extends AppCompatActivity {
             }
         });
 
+        GetJSONObjectRequest request2 = GetJSONObjectRequest.getFavsPosts(new VolleyCallback<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                posts.addPosts(response);
+                displayPosts(posts, favListView);
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("failed","Failure");
+            }
+        }, "5a1e1ec72e323670225b0abd");
+
+        GetJSONObjectRequest request3 = GetJSONObjectRequest.getMyPosts(new VolleyCallback<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                posts.addPosts(response);
+                displayPosts(posts, myListView);
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("failed","Failure");
+            }
+        }, "5a1e1ec72e323670225b0abd");
+
         request.send();
+        request2.send();
+        request3.send();
     }
 
-    private void displayPosts(Posts posts){
+    private void displayPosts(Posts posts, ListView listView){
         PostsAdapter adapter = new PostsAdapter(this, posts.getPosts());
         listView.setAdapter(adapter);
     }
