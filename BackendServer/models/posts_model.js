@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var Users = require("../models/users_model");
 
 
 const TESTING = true;
@@ -12,6 +13,22 @@ var schema = mongoose.Schema({
     user_id:{
         required:true,
         type:String
+    },
+    user_first_name:{
+        required:true,
+        type:String
+    },
+    user_last_name:{
+        required: true,
+        type: String
+    },
+    email:{
+        required:true,
+        type: String
+    },
+    phone:{
+        type:String,
+        default:""
     },
     title:{
         required:true,
@@ -29,10 +46,6 @@ var schema = mongoose.Schema({
         type:Boolean,
         default:false
     },
-    images:{
-        type:Array,
-        default:[]          // empty by default
-    },
     date:{
         type:Date,
         default:Date.now()  // today's date
@@ -46,7 +59,13 @@ const Posts = module.exports;
 
 module.exports.addPosting = function (post, cb) {
 
-    Posts.create(post, cb);
+    Users.getUserById(post.user_id, function (err, user) {
+        post.user_first_name = user.first_name;
+        post.user_last_name  = user.last_name;
+        post.email = user.email;
+        post.phone = user.phone;
+        Posts.create(post, cb);
+    });
 
 };
 
