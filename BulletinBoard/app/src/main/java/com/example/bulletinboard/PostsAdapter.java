@@ -58,19 +58,22 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             @Override
             public void onSuccess(JSONObject response) {
                 try {
+
                     JSONObject data = response.getJSONObject("user");
-                    user.setText(data.getString("first_name") + " " + data.getString("last_name"));
+                    user.setText(" " + data.getString("first_name") + " " + data.getString("last_name"));
                 }
                 catch (org.json.JSONException e){
-                    Log.d("ERROR","JSON Error");
+
                 }
             }
 
             @Override
             public void onFailure() {
-                Log.d("ERROR","Couldn't get user info");
+                Log.d("Failure","Counldn't get User Info");
             }
         });
+
+        request.send();
     }
 
 
