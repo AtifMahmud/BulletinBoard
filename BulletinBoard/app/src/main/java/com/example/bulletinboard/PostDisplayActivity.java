@@ -25,6 +25,8 @@ public class PostDisplayActivity extends AppCompatActivity {
     private static Context context;
 
     private Post post;
+    private String phone;
+    private String mail;
     private TextView description;
     private Toolbar toolbar;
     private RatingBar ratingBar;
@@ -144,7 +146,7 @@ public class PostDisplayActivity extends AppCompatActivity {
 
         emailIntent = new Intent(android.content.Intent.ACTION_SEND);
         emailIntent.setType("plain/text");
-        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"your_email@whatever.com"});
+        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{mail});
         String subject = "Bulletin Board Post: " + post.getTitle();
         emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
         startActivity(Intent.createChooser(emailIntent, "Choose your email client:"));
@@ -152,7 +154,7 @@ public class PostDisplayActivity extends AppCompatActivity {
     public void phone(View view){
         // Sending phone call code source: "https://stackoverflow.com/questions/5403308/make-a-phone-call-click-on-a-button"
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
-        callIntent.setData(Uri.parse("tel:1234567890"));
+        callIntent.setData(Uri.parse("tel:"+phone));
         startActivity(callIntent);
     }
 }
