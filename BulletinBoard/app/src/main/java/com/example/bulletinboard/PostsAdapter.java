@@ -22,11 +22,6 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         super(context, 0, posts);
     }
 
-    /*
-    static class ViewHolder {
-        TextView text;
-        Button btn;
-    }*/
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View tempView = convertView;
@@ -60,11 +55,6 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         }
         email.setText(owner.getEmail());
         date.setText(post.getDate());
-
-       /* ViewHolder h = new ViewHolder();
-        h.text = (TextView) tempView.findViewById(R.id.title);
-        h.btn = tempView.findViewById(R.id.btn);
-        tempView.setTag(h);*/
 
         // Return the rendered view
         return tempView;
