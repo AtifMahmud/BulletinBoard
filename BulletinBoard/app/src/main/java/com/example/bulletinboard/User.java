@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by alexandre on 29/10/17.
@@ -85,16 +86,15 @@ public class User {
         RequestFuture<JSONObject> future = RequestFuture.newFuture();
         GetSynchJSONObjectRequest request = GetSynchJSONObjectRequest.getUser(id, future);
 
-        request.send();
+        JSONObject response = request.sendAndGet();
         try {
-            JSONObject response = future.get();
             if (response.getString("success").equals("true")) {
                 JSONObject data = response.getJSONObject("user");
                 return new User(
                         data.getString("first_name"),
                         data.getString("last_name"),
                         data.getString("email"),
-                        data.getString("phone"),
+                        "0000000", //TODO CHANGED
                         "",
                         data.getDouble("rating")
                 );
@@ -102,10 +102,10 @@ public class User {
                 Log.d("USER FAILED", "Couldn't get user by ID, Server issue");
                 return User.empty();
             }
-        } catch (Exception e) {
-            Log.d("USER FAILED", "Couldn't get user by ID, Exception");
+        }
+        catch (org.json.JSONException e){
             e.printStackTrace();
-            return User.empty();
+            return null;
         }
     }
 

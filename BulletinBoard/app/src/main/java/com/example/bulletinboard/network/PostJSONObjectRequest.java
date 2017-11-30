@@ -57,9 +57,8 @@ public class PostJSONObjectRequest implements Request {
 
     public static PostJSONObjectRequest post(VolleyCallback<JSONObject> callback, Post p) {
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("user_id", "temp user");
+        params.put("user_id", Connection.get().getUserId());
         params.put("title", p.getTitle());
-        params.put("date", p.getDate());
         params.put("showEmail", Boolean.toString(p.getShowEmail()));
         params.put("showPost", Boolean.toString(p.getShowPhone()));
         params.put("description", p.getDescription());

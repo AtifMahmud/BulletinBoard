@@ -54,7 +54,7 @@ public class LoginUser extends AppCompatActivity {
                         toast.show();
                         Connection.get().setUserId(response.getString("id"));
                         Log.d("ID", response.getString("id"));
-                        Intent intent = new Intent(context, MainActivity.class);
+                        Intent intent = new Intent(context, ShowPost.class);
                         startActivity(intent);
                     }
                      else {
@@ -80,7 +80,7 @@ public class LoginUser extends AppCompatActivity {
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
 
-                Intent intent = new Intent(context, MainActivity.class);
+                Intent intent = new Intent(context, LoginUser.class);
                 startActivity(intent);
             }
         }, loginBody);
