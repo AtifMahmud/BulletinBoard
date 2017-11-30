@@ -16,7 +16,6 @@ import com.example.bulletinboard.User;
 
 import org.json.JSONObject;
 
-import static com.example.bulletinboard.User.getUserById;
 import static com.example.bulletinboard.User.updateRating;
 
 public class PostDisplayActivity extends AppCompatActivity {
@@ -71,7 +70,7 @@ public class PostDisplayActivity extends AppCompatActivity {
                     displayTitle(post, toolbar);
                     // Show user rating in the rating bar
                     ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-                    ratingBar.setRating((float) getUserById(post.getUserId()).getRating());
+                    //ratingBar.setRating((float) getUserById(post.getUserId()).getRating());
 
                 } catch (org.json.JSONException e) {
                     e.printStackTrace();
@@ -89,8 +88,6 @@ public class PostDisplayActivity extends AppCompatActivity {
 
     public static void displayText(Post p, TextView tv) {
         tv.setText(p.getDescription());
-        User u = getUserById(p.getUserId());
-        tv.append("\n Created By " + u.getFirstName() + " " + u.getLastName());
     }
 
     public static void displayTitle(Post p, Toolbar tb) {

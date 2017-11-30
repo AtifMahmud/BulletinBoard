@@ -21,11 +21,11 @@ public class GetSynchJSONObjectRequest implements Request {
     private final String url;
     private final RequestFuture<JSONObject> future;
 
-    private GetSynchJSONObjectRequest(String url, RequestFuture<JSONObject> future) {
+    private GetSynchJSONObjectRequest(String url) {
         connection = Connection.get();
         this.url = connection.getBaseUrl() + url;
         this.status = Status.INITIALISED;
-        this.future = future;
+        this.future = RequestFuture.newFuture();
     }
 
     public JSONObject sendAndGet(){
@@ -36,7 +36,7 @@ public class GetSynchJSONObjectRequest implements Request {
             fail.put("success","false");
 
             try {
-                return future.get(1, TimeUnit.SECONDS);
+                return future.get(2, TimeUnit.SECONDS);
             }
             catch(java.util.concurrent.TimeoutException e){
                 Log.d("USER FAILED", "Couldn't get user by ID, Timeout");
@@ -62,7 +62,8 @@ public class GetSynchJSONObjectRequest implements Request {
     }
 
     public void send(){
-        JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(), future, future);
+        Log.d("REQUEST",url);
+        JsonObjectRequest request = new JsonObjectRequest(com.android.volley.Request.Method.GET, url, null, future, future);
         connection.getRequestQueue().add(request);
     }
 
@@ -71,7 +72,7 @@ public class GetSynchJSONObjectRequest implements Request {
     }
 
 
-    public static GetSynchJSONObjectRequest getUser(String id, RequestFuture<JSONObject> future){
-        return new GetSynchJSONObjectRequest("/api/users/id="+id, future);
+    public static GetSynchJSONObjectRequest getUser(String id){
+        return new GetSynchJSONObjectRequest("/api/users/id="+id);
     }
 }
