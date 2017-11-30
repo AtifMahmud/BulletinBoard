@@ -64,21 +64,6 @@ public class ShowPost extends AppCompatActivity {
         spec.setIndicator("My Posts");
         host.addTab(spec);
 
-        OnItemClickListener clickListener = new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("IS THIS WORKING", "YES");
-               /* Post clickedPost = adapter.getItem(position);
-                Intent intent = new Intent(ShowPost.this, PostDisplayActivity.class);
-                Bundle b = new Bundle();
-                b.putString("id", clickedPost.getId());
-                intent.putExtras(b);
-                startActivity(intent);*/
-            }
-
-        };
-
         allPosts = new Posts();
         favPosts = new Posts();
         myPosts = new Posts();
@@ -90,17 +75,50 @@ public class ShowPost extends AppCompatActivity {
         allAdapter = new PostsAdapter(this, allPosts.getPosts());
         listView.setAdapter(allAdapter);
 
-        listView.setOnItemClickListener(clickListener);
+        listView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("IS THIS WORKING", "YES");
+                Post clickedPost = allAdapter.getItem(position);
+                Intent intent = new Intent(ShowPost.this, PostDisplayActivity.class);
+                Bundle b = new Bundle();
+                b.putString("id", clickedPost.getId());
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
 
         favAdapter = new PostsAdapter(this, favPosts.getPosts());
         favListView.setAdapter(favAdapter);
 
-        favListView.setOnItemClickListener(clickListener);
+        favListView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("IS THIS WORKING", "YES");
+                Post clickedPost = favAdapter.getItem(position);
+                Intent intent = new Intent(ShowPost.this, PostDisplayActivity.class);
+                Bundle b = new Bundle();
+                b.putString("id", clickedPost.getId());
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
 
         myAdapter = new PostsAdapter(this, myPosts.getPosts());
         myListView.setAdapter(myAdapter);
 
-        myListView.setOnItemClickListener(clickListener);
+        myListView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("IS THIS WORKING", "YES");
+                Post clickedPost = myAdapter.getItem(position);
+                Intent intent = new Intent(ShowPost.this, PostDisplayActivity.class);
+                Bundle b = new Bundle();
+                b.putString("id", clickedPost.getId());
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
 
         tab1 = (SwipeRefreshLayout) findViewById(R.id.tab1);
         tab2 = (SwipeRefreshLayout) findViewById(R.id.tab2);
