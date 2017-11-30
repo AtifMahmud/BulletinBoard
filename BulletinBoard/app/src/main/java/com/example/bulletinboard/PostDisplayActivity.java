@@ -74,6 +74,16 @@ public class PostDisplayActivity extends AppCompatActivity {
                     ratingBar = (RatingBar) findViewById(R.id.ratingBar);
                     updateUserInfo(post.getUserId(), ratingBar);
 
+                    if(!post.getShowPhone()){
+                        View phone = findViewById(R.id.sendCallButton);
+                        phone.setVisibility(View.GONE);
+                    }
+
+                    if(!post.getShowEmail()){
+                        View email = findViewById(R.id.sendEmailButton);
+                        email.setVisibility(View.GONE);
+                    }
+
                 } catch (org.json.JSONException e) {
                     e.printStackTrace();
                 }
