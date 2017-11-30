@@ -38,19 +38,18 @@ public class Posts {
         return posts;
     }
 
-    public void addPost(Post post, Context context){
-        postList.add(post);
+    public static void addPost(Post post, Context context){
         PostJSONObjectRequest request = PostJSONObjectRequest.post(new VolleyCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject response) {
-                Log.d("POST POSTED",response.toString());
+                Log.d("POST POSTED","HeY");
                 CharSequence text = "Your post has been added";
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-                Intent login = new Intent(context, ShowPost.class);
-                context.startActivity(login);
+                Intent showPost = new Intent(context, ShowPost.class);
+                context.startActivity(showPost);
             }
 
             @Override

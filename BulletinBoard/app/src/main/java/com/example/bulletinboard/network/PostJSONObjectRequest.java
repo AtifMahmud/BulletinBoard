@@ -32,9 +32,11 @@ public class PostJSONObjectRequest implements Request {
 
     @Override
     public void send() {
+        Log.d("SENDING POST",url + " " + params);
         JsonObjectRequest req = new JsonObjectRequest(url, params,
                 response -> {
                     status = Status.SUCCESS;
+                    Log.d("POST SUCCESS",response.toString());
                     callback.onSuccess(response);
                 },
                 e -> {
@@ -60,6 +62,7 @@ public class PostJSONObjectRequest implements Request {
         params.put("showEmail", Boolean.toString(p.getShowEmail()));
         params.put("showPost", Boolean.toString(p.getShowPhone()));
         params.put("description", p.getDescription());
+
 
         return new PostJSONObjectRequest("http://104.197.33.114:8000/api/posts/",callback,new JSONObject(params));
     }

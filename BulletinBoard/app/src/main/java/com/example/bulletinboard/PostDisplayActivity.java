@@ -75,6 +75,7 @@ public class PostDisplayActivity extends AppCompatActivity {
     public static void displayText(Post p, TextView tv){
         tv.setText(p.getDescription());
         User u = User.getUserById(p.getUserId());
+        tv.append("\n Created By "+u.getFirstName()+" "+u.getLastName());
     }
 
     public static void displayTitle(Post p, Toolbar tb){

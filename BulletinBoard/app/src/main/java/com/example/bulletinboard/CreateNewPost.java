@@ -32,9 +32,7 @@ public class CreateNewPost extends AppCompatActivity {
         boolean showEmailState = showEmail.isChecked();
         Post thisPost = new Post(title, description, "tempId", "tempUser" , showPhoneState, showEmailState); //TODO CHANGE THAT
 
-        Posts posts = Posts.getInstance();
-        posts.addPost(thisPost, context);
-        // send fields to
+        Posts.addPost(thisPost, context);
     }
 
     public void switchToPosts(){
