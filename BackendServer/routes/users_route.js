@@ -93,11 +93,13 @@ router.post("/update/id=:id", function (req, resp) {
 });
 
 // Add rating to user.
-router.post("/add_rating/id=:id&rating=:rating", function (req, resp) {
-    var id = req.params.id;
-    var rating = req.params.rating;
+router.post("/add_rating/", function (req, resp) {
 
-    Users.addRating(id, "token" , rating, function (err, new_rating) {
+    var rater_id = req.body.raterId;
+    var ratee_id = req.body.rateeId;
+    var rating   = req.body.rating;
+
+    Users.addRating(rater_id, ratee_id, "token" , rating, function (err, new_rating) {
         if (err) resp.json({success:false, err:err});
         else     resp.json({success:true , new_rating:new_rating});
     })

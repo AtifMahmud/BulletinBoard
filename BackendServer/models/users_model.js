@@ -53,6 +53,10 @@ var schema = mongoose.Schema({
         type:Number,
         default:0
     },
+    rating_map:{
+        type:Object,
+        default:{}
+    },
     num_ratings:{
         type:Number,
         default:0
@@ -62,7 +66,7 @@ var schema = mongoose.Schema({
 module.exports = mongoose.model("users", schema);
 const Users = module.exports;
 
-const WANTED_FIELDS = "_id first_name last_name email phone registration rating num_ratings favourites";
+const WANTED_FIELDS = "_id first_name last_name email phone registration rating num_ratings favourites rating_map";
 
 /**
  * Sends a registration email to the email provided during registration
@@ -243,22 +247,27 @@ module.exports.getUserFavourites = function (uid, cb) {
     });
 };
 
-module.exports.addRating = function (id, token, rating, cb) {
+module.exports.addRating = function (rater_id, ratee_id, token, rating, cb) {
 
-    rating = Math.floor(rating);
     if (rating < 0 || rating > 5) cb("Invalid rating.", -1);
     else
-        module.exports.getUserById(id, function (err, user) {
+        module.exports.getUserById(ratee_id, function (err, user) {
             if (err || !user) cb("User not found", -1);
             else {
                 var old_rating  = user.rating;
                 var num_ratings = user.num_ratings;
-
-                var new_rating = (old_rating*num_ratings + rating)/(num_ratings+1);
+                var new_rating = -1;
+                if (user.rating_map[rater_id] !== undefined) {
+                    new_rating = (old_rating*num_ratings + rating - user.rating_map[rater_id])/num_ratings;
+                } else {
+                    new_rating = (old_rating*num_ratings + rating)/(num_ratings+1);
+                    num_ratings++;
+                }
+                user.rating_map[rater_id] = rating;
                 Users.updateFields(
-                    id,
+                    ratee_id,
                     token,
-                    {rating:new_rating, num_ratings:num_ratings+1},
+                    {rating:new_rating, num_ratings:num_ratings, rating_map:user.rating_map},
                     function (err) {
                         if (err) cb(err, -1);
                         else     cb(err, new_rating);
