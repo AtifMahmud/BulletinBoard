@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static com.example.bulletinboard.User.getUserById;
+
 /**
  * Created by Logan on 2017-10-14.
  */
@@ -31,8 +33,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         // get the item at this position
         Post post = getItem(position);
 
-       // User owner = getUserById(post.getUserId());
-        User owner;
+        User owner = getUserById(post.getUserId());
         // inflate the view if the existing view isn't being reused
         if (convertView == null)
             tempView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
@@ -52,12 +53,12 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             phone.setVisibility(View.INVISIBLE);
             phoneHeader.setVisibility(View.INVISIBLE);
         }
-        //phone.setText(owner.getPhone());
+        phone.setText(owner.getPhone());
         if(!post.getShowEmail()) {
             phone.setVisibility(View.INVISIBLE);
             emailHeader.setVisibility(View.INVISIBLE);
         }
-      //  email.setText(owner.getEmail());
+        email.setText(owner.getEmail());
         date.setText(post.getDate());
 
        /* ViewHolder h = new ViewHolder();
