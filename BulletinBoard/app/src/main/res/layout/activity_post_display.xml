@@ -38,26 +38,26 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-<!--
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
-
+    <!--
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.example.bulletinboard.PostDisplayActivity">
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
-            <TextView
-                android:id="@+id/postDisplayDescr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin" />
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.example.bulletinboard.PostDisplayActivity">
 
+                <TextView
+                    android:id="@+id/postDisplayDescr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin" />
+
+            </android.support.v4.widget.NestedScrollView>
         </android.support.v4.widget.NestedScrollView>
-    </android.support.v4.widget.NestedScrollView>
--->
+    -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -84,6 +84,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="User Name" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom|center_horizontal">
+
+                    <Button
+                        android:id="@+id/sendEmailButton"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="sendEmail"
+                        android:text="Email poster" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom|center_horizontal">
+
+                    <Button
+                        android:id="@+id/sendCallButton"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="phone"
+                        android:text="Call poster" />
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"

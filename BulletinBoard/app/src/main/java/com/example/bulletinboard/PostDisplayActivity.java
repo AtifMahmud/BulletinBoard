@@ -2,6 +2,7 @@ package com.example.bulletinboard;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -109,8 +110,24 @@ public class PostDisplayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void sendEmail(View view){
+    public void sendEmail(View view) {
         Log.d("Sending email", "Email popup");
+        // Sending email code source: "https://stackoverflow.com/questions/8994488/android-button-onclick-submit-to-email"
 
+        Intent emailIntent;
+        String feedback;
+
+        emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+        emailIntent.setType("plain/text");
+        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"your_email@whatever.com"});
+        String subject = "Bulletin Board Post: " + post.getTitle();
+        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+        startActivity(Intent.createChooser(emailIntent, "Choose your email client:"));
+    }
+    public void phone(View view){
+        // Sending phone call code source: "https://stackoverflow.com/questions/5403308/make-a-phone-call-click-on-a-button"
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+        callIntent.setData(Uri.parse("tel:1234567890"));
+        startActivity(callIntent);
     }
 }
