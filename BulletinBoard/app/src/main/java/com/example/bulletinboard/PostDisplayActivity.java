@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.bulletinboard.network.GetJSONObjectRequest;
 import com.example.bulletinboard.network.VolleyCallback;
+import com.example.bulletinboard.User;
 
 import org.json.JSONObject;
 
@@ -18,7 +19,8 @@ public class PostDisplayActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private static PostDisplayActivity me = new PostDisplayActivity();
-    public PostDisplayActivity getInstance(){
+
+    public PostDisplayActivity getInstance() {
         return me;
     }
 
@@ -29,10 +31,10 @@ public class PostDisplayActivity extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         String id = ""; // or other values
-        if(b != null)
+        if (b != null)
             id = b.getString("id");
 
-        this.description = (TextView)findViewById(R.id.postDisplayDescr);
+        this.description = (TextView) findViewById(R.id.postDisplayDescr);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
@@ -40,7 +42,7 @@ public class PostDisplayActivity extends AppCompatActivity {
             @Override
             public void onSuccess(JSONObject response) {
 
-                Log.d("RESPONSE",response.toString());
+                Log.d("RESPONSE", response.toString());
 
                 try {
 
@@ -56,30 +58,31 @@ public class PostDisplayActivity extends AppCompatActivity {
 
                     displayText(p, description);
                     displayTitle(p, toolbar);
-                }
-                catch (org.json.JSONException e){
+                } catch (org.json.JSONException e) {
                     e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure() {
-                Log.d("failed","Failure");
+                Log.d("failed", "Failure");
             }
         });
 
         request.send();
     }
 
-    public static void displayText(Post p, TextView tv){
+    public static void displayText(Post p, TextView tv) {
         tv.setText(p.getDescription());
+        User u = User.getUserById(p.getUserId());
+        tv.append("\n Created By "+u.getFirstName()+" "+u.getLastName());
     }
 
-    public static void displayTitle(Post p, Toolbar tb){
+    public static void displayTitle(Post p, Toolbar tb) {
         tb.setTitle(p.getTitle());
     }
 
-    public static void addToFavs(){
+    public static void addToFavs() {
 
     }
 }

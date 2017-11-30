@@ -30,19 +30,17 @@ public class CreateNewPost extends AppCompatActivity {
         CheckBox showEmail = (CheckBox) findViewById(R.id.showEmailButton);
         boolean showPhoneState = showPhone.isChecked();
         boolean showEmailState = showEmail.isChecked();
-        Post thisPost = new Post(title, description, "tempId", "tempUser" , showPhoneState, showEmailState); //TODO CHANGE THAT
+        Post thisPost = new Post(title, description, "tempId", "tempUser", showPhoneState, showEmailState); //TODO CHANGE THAT
 
-        Posts posts = Posts.getInstance();
-        posts.addPost(thisPost, context);
-        // send fields to
+        Posts.addPost(thisPost, context);
     }
 
-    public void switchToPosts(){
+    public void switchToPosts() {
         Intent intent = new Intent(this, ShowPost.class);
         startActivity(intent);
     }
 
-    public void showPostScreen(){
+    public void showPostScreen() {
         Intent intent = new Intent(this, ShowPost.class);
         startActivity(intent);
     }
