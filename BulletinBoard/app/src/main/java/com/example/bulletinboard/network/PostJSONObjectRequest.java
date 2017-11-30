@@ -82,6 +82,14 @@ public class PostJSONObjectRequest implements Request {
         return new PostJSONObjectRequest("http://104.197.33.114:8000/api/users/", callback, new JSONObject(params));
     }
 
+    public static PostJSONObjectRequest post(VolleyCallback<JSONObject> callback, String userId, Double rating){
+        HashMap<String, String> params = new HashMap<String, String>();
+
+        params.put("id", userId);
+        params.put("rating", rating.toString());
+        return new PostJSONObjectRequest("http://104.197.33.114:8000/api/users/add_rating/", callback, new JSONObject(params));
+    }
+
     public static PostJSONObjectRequest post(VolleyCallback<JSONObject> callback, LoginBody loginBody){
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("email", loginBody.getEmail());

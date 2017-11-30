@@ -1,12 +1,16 @@
 package com.example.bulletinboard;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.ConditionVariable;
 import android.service.notification.Condition;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.RequestFuture;
 import com.example.bulletinboard.network.GetJSONObjectRequest;
 import com.example.bulletinboard.network.GetSynchJSONObjectRequest;
+import com.example.bulletinboard.network.PostJSONObjectRequest;
 import com.example.bulletinboard.network.VolleyCallback;
 
 import org.json.JSONObject;
@@ -38,7 +42,7 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.rating = 0;
+        this.rating = 0.0;
         this.ratingCount = 0;
         this.totalRating = 0;
     }
@@ -47,11 +51,32 @@ public class User {
         this(firstName, lastName, email, phone, password, 0.0);
     }
 
-    public void updateRating(int newRating) {
-        this.ratingCount++;
-        this.totalRating += newRating;
-        if (ratingCount != 0)
-            this.rating = totalRating / ratingCount;
+    public static void updateRating(Double newRating, String userId, Context context) {
+        PostJSONObjectRequest request = PostJSONObjectRequest.post(new VolleyCallback<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                Log.d("RATING POSTED", "HeY");
+                CharSequence text = "Your rating has been added";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                Intent showPost = new Intent(context, ShowPost.class);
+                context.startActivity(showPost);
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("failed", "Failure");
+                CharSequence text = "Post creation failed";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        }, userId, newRating);
+
+        request.send();
     }
 
 
