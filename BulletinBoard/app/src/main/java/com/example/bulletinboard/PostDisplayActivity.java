@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.bulletinboard.network.Connection;
 import com.example.bulletinboard.network.GetJSONObjectRequest;
 import com.example.bulletinboard.network.VolleyCallback;
 import com.example.bulletinboard.User;
@@ -100,11 +101,16 @@ public class PostDisplayActivity extends AppCompatActivity {
 
     public void updateUsersRating(View view) {
         Log.d("RATING UPDATED", "rating has been updated");
-        updateRating(ratingBar.getRating(), post.getUserId()/*TODO RATER*/,post.getUserId(), context);
+        updateRating(ratingBar.getRating(), Connection.get().getUserId(), post.getUserId(), context);
         Intent intent = new Intent(this, ShowPost.class);
         //Bundle b = new Bundle();
         //b.putString("id", post.getUserId());
         //intent.putExtras(b);
         startActivity(intent);
+    }
+
+    public void sendEmail(View view){
+        Log.d("Sending email", "Email popup");
+
     }
 }
