@@ -139,6 +139,13 @@ public class PostDisplayActivity extends AppCompatActivity {
         request.send();
     }
 
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+        Intent intent = new Intent(this, ShowPost.class);
+        startActivity(intent);
+    }
+
     public void favAction() {
         if(isFav){
 

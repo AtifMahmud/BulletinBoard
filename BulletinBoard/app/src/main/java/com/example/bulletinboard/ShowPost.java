@@ -149,6 +149,13 @@ public class ShowPost extends AppCompatActivity {
         updateMyPosts();
     }
 
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+        Intent intent = new Intent(this, ShowPost.class);
+        startActivity(intent);
+    }
+
     private void updateAllPosts() {
 
         GetJSONObjectRequest request = GetJSONObjectRequest.getAllPosts(new VolleyCallback<JSONObject>() {
