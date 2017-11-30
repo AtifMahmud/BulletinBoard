@@ -3,6 +3,7 @@ package com.example.bulletinboard;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.bulletinboard.network.GetJSONObjectRequest;
 import com.example.bulletinboard.network.PostJSONObjectRequest;
@@ -29,7 +30,7 @@ public class Posts {
     private static Posts posts = new Posts();
     private ArrayList<Post> postList;
 
-    private Posts(){
+    public Posts(){
         postList = new ArrayList<>();
     }
 
@@ -43,6 +44,11 @@ public class Posts {
             @Override
             public void onSuccess(JSONObject response) {
                 Log.d("POST POSTED",response.toString());
+                CharSequence text = "Your post has been added";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
                 Intent login = new Intent(context, ShowPost.class);
                 context.startActivity(login);
             }
@@ -50,6 +56,11 @@ public class Posts {
             @Override
             public void onFailure() {
                 Log.d("failed","Failure");
+                CharSequence text = "Post creation failed";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         }, post);
 

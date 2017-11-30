@@ -1,15 +1,17 @@
 package com.example.bulletinboard;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.Toast;
+import android.widget.AdapterView.*;
 
 import com.example.bulletinboard.network.GetJSONObjectRequest;
 import com.example.bulletinboard.network.VolleyCallback;
@@ -22,12 +24,24 @@ public class ShowPost extends AppCompatActivity {
     private ListView favListView;
     private ListView myListView;
 
+    private Posts allPosts;
+    private Posts favPosts;
+    private Posts myPosts;
+
+    private PostsAdapter allAdapter;
+    private PostsAdapter favAdapter;
+    private PostsAdapter myAdapter;
+
+    private SwipeRefreshLayout tab1;
+    private SwipeRefreshLayout tab2;
+    private SwipeRefreshLayout tab3;
+
     TabHost tabHost;
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_show_post);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_show_post);
 
         TabHost host = (TabHost)findViewById(R.id.tabHost);
         host.setup();
@@ -50,76 +64,149 @@ public class ShowPost extends AppCompatActivity {
         spec.setIndicator("My Posts");
         host.addTab(spec);
 
-        listView = (ListView) findViewById(R.id.post_list);
-        favListView = (ListView) findViewById(R.id.post_list_favs);
-        myListView = (ListView) findViewById(R.id.post_list_mine);
-
-        updatePosts();
-    }
-
-    private void updatePosts(){
-        Posts posts = Posts.getInstance();
-
-        GetJSONObjectRequest request = GetJSONObjectRequest.getAllPosts(new VolleyCallback<JSONObject>() {
-            @Override
-            public void onSuccess(JSONObject response) {
-                posts.addPosts(response);
-                displayPosts(posts, listView);
-            }
+        OnItemClickListener clickListener = new OnItemClickListener() {
 
             @Override
-            public void onFailure() {
-                Log.d("failed","Failure");
-            }
-        });
-
-        GetJSONObjectRequest request2 = GetJSONObjectRequest.getFavsPosts(new VolleyCallback<JSONObject>() {
-            @Override
-            public void onSuccess(JSONObject response) {
-                posts.addPosts(response);
-                displayPosts(posts, favListView);
-            }
-
-            @Override
-            public void onFailure() {
-                Log.d("failed","Failure");
-            }
-        }, "5a1e1ec72e323670225b0abd");
-
-        GetJSONObjectRequest request3 = GetJSONObjectRequest.getMyPosts(new VolleyCallback<JSONObject>() {
-            @Override
-            public void onSuccess(JSONObject response) {
-                posts.addPosts(response);
-                displayPosts(posts, myListView);
-            }
-
-            @Override
-            public void onFailure() {
-                Log.d("failed","Failure");
-            }
-        }, "5a1e1ec72e323670225b0abd");
-
-        request.send();
-        request2.send();
-        request3.send();
-    }
-
-    private void displayPosts(Posts posts, ListView listView){
-        PostsAdapter adapter = new PostsAdapter(this, posts.getPosts());
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("IS THIS WORKING", "YES");
-                Post clickedPost = adapter.getItem(position);
+               /* Post clickedPost = adapter.getItem(position);
                 Intent intent = new Intent(ShowPost.this, PostDisplayActivity.class);
                 Bundle b = new Bundle();
                 b.putString("id", clickedPost.getId());
                 intent.putExtras(b);
-                startActivity(intent);
+                startActivity(intent);*/
+            }
+
+        };
+
+        allPosts = new Posts();
+        favPosts = new Posts();
+        myPosts = new Posts();
+
+        listView = (ListView) findViewById(R.id.post_list);
+        favListView = (ListView) findViewById(R.id.post_list_favs);
+        myListView = (ListView) findViewById(R.id.post_list_mine);
+
+        allAdapter = new PostsAdapter(this, allPosts.getPosts());
+        listView.setAdapter(allAdapter);
+
+        listView.setOnItemClickListener(clickListener);
+
+        favAdapter = new PostsAdapter(this, favPosts.getPosts());
+        favListView.setAdapter(favAdapter);
+
+        favListView.setOnItemClickListener(clickListener);
+
+        myAdapter = new PostsAdapter(this, myPosts.getPosts());
+        myListView.setAdapter(myAdapter);
+
+        myListView.setOnItemClickListener(clickListener);
+
+        tab1 = (SwipeRefreshLayout) findViewById(R.id.tab1);
+        tab2 = (SwipeRefreshLayout) findViewById(R.id.tab2);
+        tab3 = (SwipeRefreshLayout) findViewById(R.id.tab3);
+
+        tab1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateAllPosts();
             }
         });
+        tab2.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateFavPosts();
+            }
+        });
+        tab3.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateMyPosts();
+            }
+        });
+
+        updateAllPosts();
+        updateFavPosts();
+        updateMyPosts();
     }
+
+    private void updateAllPosts(){
+
+        GetJSONObjectRequest request = GetJSONObjectRequest.getAllPosts(new VolleyCallback<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                allPosts.addPosts(response);
+                allAdapter.clear();
+                allAdapter.addAll(allPosts.getPosts());
+                allAdapter.notifyDataSetChanged();
+                tab1.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("failed","Failure");
+                toastError();
+            }
+        });
+
+        request.send();
+    }
+
+    private void updateFavPosts(){
+
+        GetJSONObjectRequest request2 = GetJSONObjectRequest.getFavsPosts(new VolleyCallback<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                favPosts.addPosts(response);
+                favAdapter.clear();
+                favAdapter.addAll(favPosts.getPosts());
+                favAdapter.notifyDataSetChanged();
+                tab2.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("failed","Failure");
+                toastError();
+            }
+        }, "5a1e1ec72e323670225b0abd");
+
+        request2.send();
+    }
+
+    private void updateMyPosts(){
+
+        GetJSONObjectRequest request3 = GetJSONObjectRequest.getMyPosts(new VolleyCallback<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                myPosts.addPosts(response);
+                myAdapter.clear();
+                myAdapter.addAll(myPosts.getPosts());
+                myAdapter.notifyDataSetChanged();
+                tab3.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("failed","Failure");
+                toastError();
+            }
+        }, "5a1e1ec72e323670225b0abd");
+
+        request3.send();
+
+    }
+
+    private void toastError(){
+        Context context = getApplicationContext();
+        CharSequence text = "Error while retreving data";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
+
     /*
     public void showSamplePost(View view){
         Intent intent = new Intent(this, PostDisplayActivity.class);
