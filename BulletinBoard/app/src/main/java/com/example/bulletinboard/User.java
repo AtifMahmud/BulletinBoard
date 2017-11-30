@@ -1,11 +1,18 @@
 package com.example.bulletinboard;
 
+import android.os.ConditionVariable;
+import android.service.notification.Condition;
 import android.util.Log;
 
+import com.android.volley.toolbox.RequestFuture;
 import com.example.bulletinboard.network.GetJSONObjectRequest;
+import com.example.bulletinboard.network.GetSynchJSONObjectRequest;
 import com.example.bulletinboard.network.VolleyCallback;
 
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * Created by alexandre on 29/10/17.
@@ -16,12 +23,16 @@ public class User {
     private final String lastName;
     private final String email;
     private final String phone;
-    private String password;
+    private final String password;
     private double rating;
     private int totalRating;
     private int ratingCount;
 
-    public User(String firstName, String lastName, String email, String phone, String password){
+    public User empty(){
+        return new User("","","","","");
+    }
+
+    public User(String firstName, String lastName, String email, String phone, String password, Double rating){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -30,6 +41,10 @@ public class User {
         this.rating = 0;
         this.ratingCount = 0;
         this.totalRating = 0;
+    }
+
+    public User(String firstName, String lastName, String email, String phone, String password){
+        this(firstName, lastName, email, phone, password, 0.0);
     }
 
     public void updateRating(int newRating){
@@ -42,20 +57,32 @@ public class User {
 
     public User getUserById(String id){
 
-        GetJSONObjectRequest request = GetJSONObjectRequest.getUser(new VolleyCallback<JSONObject>() {
-            @Override
-            public void onSuccess(JSONObject response) {
-                Log.d("GET SUCCEEDED","yeah");
-            }
-            @Override
-                public void onFailure() {
-                Log.d("failed","Failure");
-            }
-        }, id);
+        RequestFuture<JSONObject> future = RequestFuture.newFuture();
+        GetSynchJSONObjectRequest request = GetSynchJSONObjectRequest.getUser(id, future);
 
         request.send();
-
-        return new User("","","","","");
+        try {
+            JSONObject response = future.get();
+            if(response.getString("success").equals("true")){
+                JSONObject data = response.getJSONObject("user");
+                return new User(
+                    data.getString("first_name"),
+                    data.getString("last_name"),
+                    data.getString("email"),
+                    data.getString("phone"),
+                        "",
+                    data.getDouble("rating")
+                );
+            }
+            else{
+                Log.d("USER FAILED","Couldn't get user by ID, Server issue");
+                return empty();
+            }
+        } catch (Exception e) {
+            Log.d("USER FAILED","Couldn't get user by ID, Exception");
+            e.printStackTrace();
+            return empty();
+        }
     }
 
     public String getFirstName() { return this.firstName;}

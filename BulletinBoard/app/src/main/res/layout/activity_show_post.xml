@@ -105,5 +105,5 @@
         android:onClick="createPostScreen"
         app:elevation="10dp"
         app:fabSize="normal"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/plus" />
 </RelativeLayout>

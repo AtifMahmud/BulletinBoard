@@ -1,6 +1,7 @@
 package com.example.bulletinboard.network;
 
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.RequestFuture;
 
 import org.json.JSONObject;
 
@@ -22,6 +23,11 @@ public class GetJSONObjectRequest implements Request {
         this.url = connection.getBaseUrl() + url;
         this.callback = callback;
         this.status = Status.INITIALISED;
+    }
+
+    public void sendSynch(RequestFuture<JSONObject> future){
+        JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(), future, future);
+        connection.getRequestQueue().add(request);
     }
 
     public void send(){
@@ -58,9 +64,5 @@ public class GetJSONObjectRequest implements Request {
 
     public static GetJSONObjectRequest getPostById(String id, VolleyCallback<JSONObject> callback){
         return new GetJSONObjectRequest("/api/posts/id="+id,callback);
-    }
-
-    public static GetJSONObjectRequest getUser(VolleyCallback<JSONObject> callback, String id){
-        return new GetJSONObjectRequest("/api/users/id="+id,callback);
     }
 }
