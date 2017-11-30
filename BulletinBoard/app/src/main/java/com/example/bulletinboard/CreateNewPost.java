@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import static android.support.v4.content.ContextCompat.startActivity;
@@ -28,6 +29,14 @@ public class CreateNewPost extends AppCompatActivity {
         String description = ((EditText) findViewById(R.id.description)).getText().toString().toLowerCase();
         CheckBox showPhone = (CheckBox) findViewById(R.id.showPhoneButton);
         CheckBox showEmail = (CheckBox) findViewById(R.id.showEmailButton);
+
+        Context context = getApplicationContext();
+        CharSequence text = "Values : " + showPhone.isChecked() + " " + showEmail.isChecked();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
         boolean showPhoneState = showPhone.isChecked();
         boolean showEmailState = showEmail.isChecked();
         Post thisPost = new Post(title, description, "tempId", "tempUser", showPhoneState, showEmailState); //TODO CHANGE THAT

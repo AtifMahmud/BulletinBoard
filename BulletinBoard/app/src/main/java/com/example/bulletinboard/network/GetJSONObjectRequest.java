@@ -69,4 +69,12 @@ public class GetJSONObjectRequest implements Request {
     public static GetJSONObjectRequest getUser(String id, VolleyCallback<JSONObject> callback){
         return new GetJSONObjectRequest("/api/users/id="+id,callback);
     }
+
+    public static GetJSONObjectRequest getFav(String id, VolleyCallback<JSONObject> callback){
+        return new GetJSONObjectRequest("/api/users/user_id="+Connection.get().getUserId()+"&post_id="+id,callback);
+    }
+
+    public static GetJSONObjectRequest getFavs(VolleyCallback<JSONObject> callback){
+        return new GetJSONObjectRequest("/api/users/user_id="+Connection.get().getUserId(),callback);
+    }
 }

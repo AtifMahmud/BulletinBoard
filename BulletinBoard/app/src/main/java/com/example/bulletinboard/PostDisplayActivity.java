@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.bulletinboard.network.Connection;
 import com.example.bulletinboard.network.GetJSONObjectRequest;
+import com.example.bulletinboard.network.PostJSONObjectRequest;
 import com.example.bulletinboard.network.VolleyCallback;
 import com.example.bulletinboard.User;
 
@@ -30,6 +32,7 @@ public class PostDisplayActivity extends AppCompatActivity {
     private TextView description;
     private Toolbar toolbar;
     private RatingBar ratingBar;
+    private Boolean isFav = false;
 
     private static PostDisplayActivity me = new PostDisplayActivity();
 
@@ -75,6 +78,7 @@ public class PostDisplayActivity extends AppCompatActivity {
                     // Show user rating in the rating bar
                     ratingBar = (RatingBar) findViewById(R.id.ratingBar);
                     updateUserInfo(post.getUserId(), ratingBar);
+                    updateFav();
 
                 } catch (org.json.JSONException e) {
                     e.printStackTrace();
@@ -108,6 +112,8 @@ public class PostDisplayActivity extends AppCompatActivity {
                     JSONObject data = response.getJSONObject("user");
                     user.setText(" " + data.getString("first_name") + " " + data.getString("last_name"));
                     ratingBar.setRating((float) data.getDouble("rating"));
+                    phone = data.getString("phone");
+                    mail = data.getString("email");
                 }
                 catch (org.json.JSONException e){
 
@@ -123,8 +129,52 @@ public class PostDisplayActivity extends AppCompatActivity {
         request.send();
     }
 
-    public static void addToFavs() {
+    public void favAction() {
+        if(isFav){
 
+        }else{
+            PostJSONObjectRequest request = PostJSONObjectRequest.addFav(new VolleyCallback<JSONObject>() {
+                @Override
+                public void onSuccess(JSONObject response) {
+                    isFav = true;
+                    setFav(true);
+                }
+
+                @Override
+                public void onFailure() {
+                    isFav = false;
+                    setFav(false);
+                }
+            }, post.getId());
+
+            request.send();
+        }
+    }
+
+    public void updateFav(){
+        GetJSONObjectRequest request = GetJSONObjectRequest.getFav(post.getId(), new VolleyCallback<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                setFav(true);
+            }
+
+            @Override
+            public void onFailure() {
+                setFav(false);
+            }
+        });
+
+        request.send();
+    }
+
+    public void setFav(Boolean isFav){
+        FloatingActionButton favBut = (FloatingActionButton) findViewById(R.id.favButton);
+        if(isFav){
+            favBut.setBackgroundResource(R.drawable.cross);
+        }
+        else{
+            favBut.setBackgroundResource(R.drawable.plus);
+        }
     }
 
     public void updateUsersRating(View view) {
