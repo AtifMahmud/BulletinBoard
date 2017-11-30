@@ -61,5 +61,5 @@
         app:fabSize="mini"
         app:layout_anchor="@id/postPreview"
         app:layout_anchorGravity="bottom|right|end"
-        app:srcCompat="@drawable/plus" />
+        app:srcCompat="@android:drawable/btn_star_big_on" />
 </android.support.design.widget.CoordinatorLayout>

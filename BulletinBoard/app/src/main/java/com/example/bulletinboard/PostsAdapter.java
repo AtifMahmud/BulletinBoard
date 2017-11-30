@@ -11,25 +11,24 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static com.example.bulletinboard.User.getUserById;
+
 /**
  * Created by Logan on 2017-10-14.
  */
 // Extension to get arrayadapter to work with a Post
 public class PostsAdapter extends ArrayAdapter<Post> {
-    public PostsAdapter(Context context, ArrayList<Post> posts){
+    public PostsAdapter(Context context, ArrayList<Post> posts) {
         super(context, 0, posts);
     }
 
-    /*
-    static class ViewHolder {
-        TextView text;
-        Button btn;
-    }*/
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View tempView = convertView;
         // get the item at this position
         Post post = getItem(position);
+
+        User owner = getUserById(post.getUserId());
         // inflate the view if the existing view isn't being reused
         if (convertView == null)
             tempView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
@@ -37,20 +36,25 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         // get and post data in field
         TextView title = (TextView) tempView.findViewById(R.id.title);
         TextView description = (TextView) tempView.findViewById(R.id.description);
-        TextView showPhone = (TextView) tempView.findViewById(R.id.showPhone);
-        TextView showEmail = (TextView) tempView.findViewById(R.id.showEmail);
+        TextView phone = (TextView) tempView.findViewById(R.id.showPhone);
+        TextView email = (TextView) tempView.findViewById(R.id.showEmail);
         TextView date = (TextView) tempView.findViewById(R.id.date);
+        TextView phoneHeader = (TextView) tempView.findViewById(R.id.showPhoneHeader);
+        TextView emailHeader = (TextView) tempView.findViewById(R.id.showEmailHeader);
 
         title.setText(post.getTitle());
         description.setText(post.getDescription());
-        showPhone.setText(Boolean.toString(post.getShowPhone()));
-        showEmail.setText(Boolean.toString(post.getShowEmail()));
+        if (!post.getShowPhone()) {
+            phone.setVisibility(View.INVISIBLE);
+            phoneHeader.setVisibility(View.INVISIBLE);
+        }
+        phone.setText(owner.getPhone());
+        if (!post.getShowEmail()) {
+            phone.setVisibility(View.INVISIBLE);
+            emailHeader.setVisibility(View.INVISIBLE);
+        }
+        email.setText(owner.getEmail());
         date.setText(post.getDate());
-
-       /* ViewHolder h = new ViewHolder();
-        h.text = (TextView) tempView.findViewById(R.id.title);
-        h.btn = tempView.findViewById(R.id.btn);
-        tempView.setTag(h);*/
 
         // Return the rendered view
         return tempView;
