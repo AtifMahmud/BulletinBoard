@@ -9,26 +9,26 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/emailText"
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="E-mail"/>
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/emailText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"/>
 
     <TextView
-        android:id="@+id/password"
+        android:id="@+id/passwordtag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Password"/>
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
