@@ -194,10 +194,11 @@ public class ShowPost extends AppCompatActivity {
     }
 
     private void updateMyPosts() {
-
+        Log.d("MY POSTS","Retreiving posts");
         GetJSONObjectRequest request3 = GetJSONObjectRequest.getMyPosts(new VolleyCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject response) {
+                Log.d("MY POSTS",response.toString());
                 myPosts.addPosts(response);
                 myAdapter.clear();
                 myAdapter.addAll(myPosts.getPosts());
@@ -210,7 +211,7 @@ public class ShowPost extends AppCompatActivity {
                 Log.d("failed", "Failure");
                 toastError();
             }
-        }, "5a1e1ec72e323670225b0abd");
+        });
 
         request3.send();
 
