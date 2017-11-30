@@ -72,6 +72,7 @@ public class PostDisplayActivity extends AppCompatActivity {
                     // Show user rating in the rating bar
                     ratingBar = (RatingBar) findViewById(R.id.ratingBar);
                     //ratingBar.setRating((float) getUserById(post.getUserId()).getRating());
+                    updateUserInfo(post.getUserId());
 
                 } catch (org.json.JSONException e) {
                     e.printStackTrace();
@@ -93,6 +94,30 @@ public class PostDisplayActivity extends AppCompatActivity {
 
     public static void displayTitle(Post p, Toolbar tb) {
         tb.setTitle(p.getTitle());
+    }
+
+    private void updateUserInfo(String id){
+        TextView user = (TextView) findViewById(R.id.userName);
+        GetJSONObjectRequest request = GetJSONObjectRequest.getUser(id, new VolleyCallback<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                try {
+
+                    JSONObject data = response.getJSONObject("user");
+                    user.setText(" " + data.getString("first_name") + " " + data.getString("last_name"));
+                }
+                catch (org.json.JSONException e){
+
+                }
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("Failure","Counldn't get User Info");
+            }
+        });
+
+        request.send();
     }
 
     public static void addToFavs() {
