@@ -1,10 +1,12 @@
 package com.example.bulletinboard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -88,7 +90,7 @@ public class PostDisplayActivity extends AppCompatActivity {
     public static void displayText(Post p, TextView tv) {
         tv.setText(p.getDescription());
         User u = getUserById(p.getUserId());
-        tv.append("\n Created By "+u.getFirstName()+" "+u.getLastName());
+        tv.append("\n Created By " + u.getFirstName() + " " + u.getLastName());
     }
 
     public static void displayTitle(Post p, Toolbar tb) {
@@ -99,8 +101,13 @@ public class PostDisplayActivity extends AppCompatActivity {
 
     }
 
-    private void updateUsersRating(){
+    public void updateUsersRating(View view) {
         Log.d("RATING UPDATED", "rating has been updated");
-        updateRating(ratingBar.getRating(), post.getUserId(), context);
+        updateRating(ratingBar.getRating(), post.getUserId()/*TODO RATER*/,post.getUserId(), context);
+        Intent intent = new Intent(this, ShowPost.class);
+        //Bundle b = new Bundle();
+        //b.putString("id", post.getUserId());
+        //intent.putExtras(b);
+        startActivity(intent);
     }
 }

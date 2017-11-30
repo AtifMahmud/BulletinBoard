@@ -52,7 +52,7 @@ public class User {
         this(firstName, lastName, email, phone, password, 0.0);
     }
 
-    public static void updateRating(float newRating, String userId, Context context) {
+    public static void updateRating(float newRating, String raterUserId, String rateeUserId, Context context) {
         PostJSONObjectRequest request = PostJSONObjectRequest.post(new VolleyCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject response) {
@@ -69,13 +69,13 @@ public class User {
             @Override
             public void onFailure() {
                 Log.d("failed", "Failure");
-                CharSequence text = "Post creation failed";
+                CharSequence text = "Rating not added";
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
             }
-        }, userId, newRating);
+        }, raterUserId, rateeUserId, newRating);
 
         request.send();
     }
