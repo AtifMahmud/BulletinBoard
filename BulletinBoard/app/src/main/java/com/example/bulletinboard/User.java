@@ -52,7 +52,7 @@ public class User {
         this(firstName, lastName, email, phone, password, 0.0);
     }
 
-    public static void updateRating(Double newRating, String userId, Context context) {
+    public static void updateRating(float newRating, String userId, Context context) {
         PostJSONObjectRequest request = PostJSONObjectRequest.post(new VolleyCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject response) {
