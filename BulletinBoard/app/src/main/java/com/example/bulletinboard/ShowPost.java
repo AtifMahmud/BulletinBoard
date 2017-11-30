@@ -43,7 +43,7 @@ public class ShowPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_post);
 
-        TabHost host = (TabHost)findViewById(R.id.tabHost);
+        TabHost host = (TabHost) findViewById(R.id.tabHost);
         host.setup();
 
         //Tab 1
@@ -148,7 +148,7 @@ public class ShowPost extends AppCompatActivity {
         updateMyPosts();
     }
 
-    private void updateAllPosts(){
+    private void updateAllPosts() {
 
         GetJSONObjectRequest request = GetJSONObjectRequest.getAllPosts(new VolleyCallback<JSONObject>() {
             @Override
@@ -162,7 +162,7 @@ public class ShowPost extends AppCompatActivity {
 
             @Override
             public void onFailure() {
-                Log.d("failed","Failure");
+                Log.d("failed", "Failure");
                 toastError();
             }
         });
@@ -170,7 +170,7 @@ public class ShowPost extends AppCompatActivity {
         request.send();
     }
 
-    private void updateFavPosts(){
+    private void updateFavPosts() {
 
         GetJSONObjectRequest request2 = GetJSONObjectRequest.getFavsPosts(new VolleyCallback<JSONObject>() {
             @Override
@@ -184,7 +184,7 @@ public class ShowPost extends AppCompatActivity {
 
             @Override
             public void onFailure() {
-                Log.d("failed","Failure");
+                Log.d("failed", "Failure");
                 toastError();
             }
         }, "5a1e1ec72e323670225b0abd");
@@ -192,7 +192,7 @@ public class ShowPost extends AppCompatActivity {
         request2.send();
     }
 
-    private void updateMyPosts(){
+    private void updateMyPosts() {
 
         GetJSONObjectRequest request3 = GetJSONObjectRequest.getMyPosts(new VolleyCallback<JSONObject>() {
             @Override
@@ -206,7 +206,7 @@ public class ShowPost extends AppCompatActivity {
 
             @Override
             public void onFailure() {
-                Log.d("failed","Failure");
+                Log.d("failed", "Failure");
                 toastError();
             }
         }, "5a1e1ec72e323670225b0abd");
@@ -215,7 +215,7 @@ public class ShowPost extends AppCompatActivity {
 
     }
 
-    private void toastError(){
+    private void toastError() {
         Context context = getApplicationContext();
         CharSequence text = "Error while retreving data";
         int duration = Toast.LENGTH_SHORT;
@@ -234,7 +234,7 @@ public class ShowPost extends AppCompatActivity {
         startActivity(intent);
     }*/
 
-    public void createPostScreen(View view){
+    public void createPostScreen(View view) {
         Intent intent = new Intent(this, CreateNewPost.class);
         startActivity(intent);
     }

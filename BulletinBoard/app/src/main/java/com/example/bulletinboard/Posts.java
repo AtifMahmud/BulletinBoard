@@ -19,9 +19,9 @@ import static android.support.v4.content.ContextCompat.startActivity;
 /**
  * Class: Posts
  * Public Methods: getInstance() - gets the posts object (which is made up of Array
- *                               List of Post
- *                 addPost() - adds a post to the array
- *                 getPost(index) - returns the post at an index
+ * List of Post
+ * addPost() - adds a post to the array
+ * getPost(index) - returns the post at an index
  * Description: Class to hold an ArrayList of posts for use on the show post page
  * Created by Logan on 2017-10-14.
  */
@@ -30,20 +30,20 @@ public class Posts {
     private static Posts posts = new Posts();
     private ArrayList<Post> postList;
 
-    public Posts(){
+    public Posts() {
         postList = new ArrayList<>();
     }
 
-    public static Posts getInstance(){
+    public static Posts getInstance() {
         return posts;
     }
 
-    public void addPost(Post post, Context context){
+    public void addPost(Post post, Context context) {
         postList.add(post);
         PostJSONObjectRequest request = PostJSONObjectRequest.post(new VolleyCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject response) {
-                Log.d("POST POSTED",response.toString());
+                Log.d("POST POSTED", response.toString());
                 CharSequence text = "Your post has been added";
                 int duration = Toast.LENGTH_SHORT;
 
@@ -55,7 +55,7 @@ public class Posts {
 
             @Override
             public void onFailure() {
-                Log.d("failed","Failure");
+                Log.d("failed", "Failure");
                 CharSequence text = "Post creation failed";
                 int duration = Toast.LENGTH_SHORT;
 
@@ -68,7 +68,7 @@ public class Posts {
     }
 
 
-    public void addPosts(JSONObject json){
+    public void addPosts(JSONObject json) {
 
         try {
             if (json.getString("success").equals("true")) {
@@ -97,18 +97,17 @@ public class Posts {
         }
     }
 
-    public Post getPost(int index){
-        if(index < postList.size()) {
+    public Post getPost(int index) {
+        if (index < postList.size()) {
             return postList.get(index);
-        }
-        else{
-            return new Post("Network Error","Go back and try again");
+        } else {
+            return new Post("Network Error", "Go back and try again");
         }
     }
 
-    public ArrayList<Post> getPosts(){
+    public ArrayList<Post> getPosts() {
 
-       GetJSONObjectRequest request = GetJSONObjectRequest.getAllPosts(new VolleyCallback<JSONObject>() {
+        GetJSONObjectRequest request = GetJSONObjectRequest.getAllPosts(new VolleyCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject response) {
                 addPosts(response);
@@ -116,7 +115,7 @@ public class Posts {
 
             @Override
             public void onFailure() {
-                Log.d("failed","Failure");
+                Log.d("failed", "Failure");
             }
         });
 

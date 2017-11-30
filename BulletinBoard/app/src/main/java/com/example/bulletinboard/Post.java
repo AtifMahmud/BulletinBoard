@@ -35,7 +35,7 @@ public class Post {
 
     }
 
-    public Post(String title, String description,String postId, String userId, boolean showPhone, boolean showEmail, String date) {
+    public Post(String title, String description, String postId, String userId, boolean showPhone, boolean showEmail, String date) {
         this.title = title;
         this.description = description;
         this.user_id = userId;

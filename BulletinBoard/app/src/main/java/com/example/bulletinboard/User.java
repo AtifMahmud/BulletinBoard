@@ -28,11 +28,11 @@ public class User {
     private int totalRating;
     private int ratingCount;
 
-    public static User empty(){
-        return new User("","","","","");
+    public static User empty() {
+        return new User("", "", "", "", "");
     }
 
-    public User(String firstName, String lastName, String email, String phone, String password, Double rating){
+    public User(String firstName, String lastName, String email, String phone, String password, Double rating) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -43,19 +43,19 @@ public class User {
         this.totalRating = 0;
     }
 
-    public User(String firstName, String lastName, String email, String phone, String password){
+    public User(String firstName, String lastName, String email, String phone, String password) {
         this(firstName, lastName, email, phone, password, 0.0);
     }
 
-    public void updateRating(int newRating){
+    public void updateRating(int newRating) {
         this.ratingCount++;
         this.totalRating += newRating;
         if (ratingCount != 0)
-            this.rating = totalRating/ratingCount;
+            this.rating = totalRating / ratingCount;
     }
 
 
-    public static User getUserById(String id){
+    public static User getUserById(String id) {
 
         RequestFuture<JSONObject> future = RequestFuture.newFuture();
         GetSynchJSONObjectRequest request = GetSynchJSONObjectRequest.getUser(id, future);
@@ -63,35 +63,57 @@ public class User {
         request.send();
         try {
             JSONObject response = future.get();
-            if(response.getString("success").equals("true")){
+            if (response.getString("success").equals("true")) {
                 JSONObject data = response.getJSONObject("user");
                 return new User(
-                    data.getString("first_name"),
-                    data.getString("last_name"),
-                    data.getString("email"),
-                    data.getString("phone"),
+                        data.getString("first_name"),
+                        data.getString("last_name"),
+                        data.getString("email"),
+                        data.getString("phone"),
                         "",
-                    data.getDouble("rating")
+                        data.getDouble("rating")
                 );
-            }
-            else{
-                Log.d("USER FAILED","Couldn't get user by ID, Server issue");
+            } else {
+                Log.d("USER FAILED", "Couldn't get user by ID, Server issue");
                 return User.empty();
             }
         } catch (Exception e) {
-            Log.d("USER FAILED","Couldn't get user by ID, Exception");
+            Log.d("USER FAILED", "Couldn't get user by ID, Exception");
             e.printStackTrace();
             return User.empty();
         }
     }
 
-    public String getFirstName() { return this.firstName;}
-    public String getLastName() { return  this.lastName;}
-    public String getEmail() { return this.email;}
-    public String getPhone () { return this.phone;}
-    public String getPassword () { return this.password;}
-    public double getRating () { return  this.rating; }
-    public int getRatingCount () { return  ratingCount; }
-    public int getTotalRating () { return  totalRating; }
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public double getRating() {
+        return this.rating;
+    }
+
+    public int getRatingCount() {
+        return ratingCount;
+    }
+
+    public int getTotalRating() {
+        return totalRating;
+    }
 
 }

@@ -18,7 +18,7 @@ import static com.example.bulletinboard.User.getUserById;
  */
 // Extension to get arrayadapter to work with a Post
 public class PostsAdapter extends ArrayAdapter<Post> {
-    public PostsAdapter(Context context, ArrayList<Post> posts){
+    public PostsAdapter(Context context, ArrayList<Post> posts) {
         super(context, 0, posts);
     }
 
@@ -44,12 +44,12 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
         title.setText(post.getTitle());
         description.setText(post.getDescription());
-        if(!post.getShowPhone()) {
+        if (!post.getShowPhone()) {
             phone.setVisibility(View.INVISIBLE);
             phoneHeader.setVisibility(View.INVISIBLE);
         }
         phone.setText(owner.getPhone());
-        if(!post.getShowEmail()) {
+        if (!post.getShowEmail()) {
             phone.setVisibility(View.INVISIBLE);
             emailHeader.setVisibility(View.INVISIBLE);
         }
