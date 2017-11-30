@@ -61,7 +61,7 @@ public class PostJSONObjectRequest implements Request {
         params.put("showPost", Boolean.toString(p.getShowPhone()));
         params.put("description", p.getDescription());
 
-        return new PostJSONObjectRequest("http://104.197.33.114:8000/api/posts/",callback,new JSONObject(params));
+        return new PostJSONObjectRequest("http://104.197.33.114:8000/api/posts",callback,new JSONObject(params));
     }
 
 

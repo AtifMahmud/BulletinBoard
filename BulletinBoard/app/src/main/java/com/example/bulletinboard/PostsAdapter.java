@@ -30,6 +30,9 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         View tempView = convertView;
         // get the item at this position
         Post post = getItem(position);
+
+       // User owner = getUserById(post.getUserId());
+        User owner;
         // inflate the view if the existing view isn't being reused
         if (convertView == null)
             tempView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
@@ -37,14 +40,24 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         // get and post data in field
         TextView title = (TextView) tempView.findViewById(R.id.title);
         TextView description = (TextView) tempView.findViewById(R.id.description);
-        TextView showPhone = (TextView) tempView.findViewById(R.id.showPhone);
-        TextView showEmail = (TextView) tempView.findViewById(R.id.showEmail);
+        TextView phone = (TextView) tempView.findViewById(R.id.showPhone);
+        TextView email = (TextView) tempView.findViewById(R.id.showEmail);
         TextView date = (TextView) tempView.findViewById(R.id.date);
+        TextView phoneHeader = (TextView) tempView.findViewById(R.id.showPhoneHeader);
+        TextView emailHeader = (TextView) tempView.findViewById(R.id.showEmailHeader);
 
         title.setText(post.getTitle());
         description.setText(post.getDescription());
-        showPhone.setText(Boolean.toString(post.getShowPhone()));
-        showEmail.setText(Boolean.toString(post.getShowEmail()));
+        if(!post.getShowPhone()) {
+            phone.setVisibility(View.INVISIBLE);
+            phoneHeader.setVisibility(View.INVISIBLE);
+        }
+        //phone.setText(owner.getPhone());
+        if(!post.getShowEmail()) {
+            phone.setVisibility(View.INVISIBLE);
+            emailHeader.setVisibility(View.INVISIBLE);
+        }
+      //  email.setText(owner.getEmail());
         date.setText(post.getDate());
 
        /* ViewHolder h = new ViewHolder();
