@@ -17,26 +17,13 @@ public class MainActivity extends AppCompatActivity {
         Connection.get(this);
     }
 
-    public void showPostScreen(View view){
-        Intent intent = new Intent(this, ShowPost.class);
+    public void registerUserScreen(View view) {
+        Intent intent = new Intent(this, RegisterNewUser.class);
         startActivity(intent);
     }
 
-    public void registerUserScreen(View view){
-         Intent intent = new Intent(this, RegisterNewUser.class);
-         startActivity(intent);
-    }
-
-    public void loginUserScreen(View view){
+    public void loginUserScreen(View view) {
         Intent intent = new Intent(this, LoginUser.class);
-        startActivity(intent);
-    }
-
-    public void showSamplePost(View view){
-        Intent intent = new Intent(this, PostDisplayActivity.class);
-        Bundle b = new Bundle();
-        b.putString("id","5a13454662c6c404f9e99ddc");
-        intent.putExtras(b);
         startActivity(intent);
     }
 
