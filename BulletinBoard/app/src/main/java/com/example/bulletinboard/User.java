@@ -80,35 +80,6 @@ public class User {
         request.send();
     }
 
-
-    public static User getUserById(String id) {
-
-        RequestFuture<JSONObject> future = RequestFuture.newFuture();
-        GetSynchJSONObjectRequest request = GetSynchJSONObjectRequest.getUser(id, future);
-
-        JSONObject response = request.sendAndGet();
-        try {
-            if (response.getString("success").equals("true")) {
-                JSONObject data = response.getJSONObject("user");
-                return new User(
-                        data.getString("first_name"),
-                        data.getString("last_name"),
-                        data.getString("email"),
-                        "0000000", //TODO CHANGED
-                        "",
-                        data.getDouble("rating")
-                );
-            } else {
-                Log.d("USER FAILED", "Couldn't get user by ID, Server issue");
-                return User.empty();
-            }
-        }
-        catch (org.json.JSONException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public String getFirstName() {
         return this.firstName;
     }
