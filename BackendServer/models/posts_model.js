@@ -1,6 +1,4 @@
 var mongoose = require("mongoose");
-var Users = require("../models/users_model");
-
 
 const TESTING = true;
 
@@ -55,19 +53,6 @@ var schema = mongoose.Schema({
 module.exports = mongoose.model("posts", schema);
 
 const Posts = module.exports;
-
-
-module.exports.addPosting = function (post, cb) {
-
-    Users.getUserById(post.user_id, function (err, user) {
-        post.user_first_name = user.first_name;
-        post.user_last_name  = user.last_name;
-        post.email = user.email;
-        post.phone = user.phone;
-        Posts.create(post, cb);
-    });
-
-};
 
 module.exports.getAllPosts = function (cb) {
 

@@ -4,7 +4,6 @@ var nodemailer = require("nodemailer");
 var email_config = require("../config/emailconfig");
 var Posts = require("../models/posts_model");
 
-
 const TESTING = true;
 const SEND_EMAIL = false;
 
@@ -200,7 +199,10 @@ module.exports.getUserById = function (id, cb) {
     Users.findById(
         id,
         WANTED_FIELDS,
-        cb
+        function (err, user) {
+            if (err || !user) cb("User not found", null);
+            else cb(null, user);
+        }
     );
 
 };
@@ -263,6 +265,21 @@ module.exports.addRating = function (id, token, rating, cb) {
                     });
             }
         });
+};
+
+module.exports.addPosting = function (post, cb) {
+
+    Users.getUserById(post.user_id, function (err, user) {
+        if (err) cb(err, null);
+        else {
+            post.user_first_name = user.first_name;
+            post.user_last_name = user.last_name;
+            post.email = user.email;
+            post.phone = user.phone;
+            Posts.create(post, cb);
+        }
+    });
+
 };
 
 module.exports.clearAll =  function (cb){

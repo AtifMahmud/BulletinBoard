@@ -1,13 +1,13 @@
 var express = require("express");
 var router = express.Router();
-var Posts = require("../models/posts_model");
-
+var Posts = require("../models/posts_model.js");
+var Users = require("../models/users_model.js");
 // Create a new post
 router.post("/", function (req, resp) {
 
     var post = req.body;
 
-    Posts.addPosting(post, function (err, post) {
+    Users.addPosting(post, function (err, post) {
         if(err || !post) {
             resp.json({success:false});
         }else{

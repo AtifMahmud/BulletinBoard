@@ -1,7 +1,7 @@
 var express = require("express");
 var crypto = require("crypto");
 var router = express.Router();
-var Users = require("../models/users_model");
+var Users = require("../models/users_model.js");
 
 // Get all users
 router.get("/all/", function (req, resp) {
