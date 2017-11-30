@@ -74,8 +74,7 @@ public class PostDisplayActivity extends AppCompatActivity {
                     displayTitle(post, toolbar);
                     // Show user rating in the rating bar
                     ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-                    //ratingBar.setRating((float) getUserById(post.getUserId()).getRating());
-                    updateUserInfo(post.getUserId());
+                    updateUserInfo(post.getUserId(), ratingBar);
 
                 } catch (org.json.JSONException e) {
                     e.printStackTrace();
@@ -99,7 +98,7 @@ public class PostDisplayActivity extends AppCompatActivity {
         tb.setTitle(p.getTitle());
     }
 
-    private void updateUserInfo(String id){
+    private void updateUserInfo(String id, RatingBar ratingBar){
         TextView user = (TextView) findViewById(R.id.userName);
         GetJSONObjectRequest request = GetJSONObjectRequest.getUser(id, new VolleyCallback<JSONObject>() {
             @Override
@@ -108,6 +107,7 @@ public class PostDisplayActivity extends AppCompatActivity {
 
                     JSONObject data = response.getJSONObject("user");
                     user.setText(" " + data.getString("first_name") + " " + data.getString("last_name"));
+                    ratingBar.setRating((float) data.getDouble("rating"));
                 }
                 catch (org.json.JSONException e){
 
