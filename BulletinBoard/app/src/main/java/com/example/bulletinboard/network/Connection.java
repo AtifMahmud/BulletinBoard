@@ -16,6 +16,7 @@ public final class Connection{
     private final RequestQueue requestQueue;
     private static Connection instance;
     private final  String BASE_URL = "http://104.197.33.114:8000";
+    private String userId = null;
 
     private Connection(Context context){
 
@@ -45,5 +46,17 @@ public final class Connection{
 
     public RequestQueue getRequestQueue(){
         return requestQueue;
+    }
+
+    public String getUserId(){
+        if(userId == null){
+            throw new IllegalStateException();
+        }else{
+            return userId;
+        }
+    }
+
+    public void setUserId(String userId){
+        this.userId = userId;
     }
 }

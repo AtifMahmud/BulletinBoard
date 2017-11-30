@@ -7,7 +7,7 @@ import com.example.bulletinboard.LoginUser;
 import com.example.bulletinboard.Post;
 import com.example.bulletinboard.User;
 import org.json.JSONObject;
-
+import com.example.bulletinboard.LoginBody;
 import java.util.HashMap;
 
 /**
@@ -68,7 +68,6 @@ public class PostJSONObjectRequest implements Request {
 
     public static PostJSONObjectRequest post(VolleyCallback<JSONObject> callback, User u){
         HashMap<String, String> params = new HashMap<String, String>();
-       // params.put("user_id","temp user");
         params.put("first_name", u.getFirstName());
         params.put("last_name",u.getLastName());
         params.put("email", u.getEmail());
@@ -77,4 +76,14 @@ public class PostJSONObjectRequest implements Request {
 
         return new PostJSONObjectRequest("http://104.197.33.114:8000/api/users/",callback,new JSONObject(params));
     }
+
+    public static PostJSONObjectRequest post(VolleyCallback<JSONObject> callback, LoginBody loginBody){
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("email", loginBody.getEmail());
+        params.put("password", loginBody.getPassword());
+
+        return new PostJSONObjectRequest("http://104.197.33.114:8000/api/users/authenticate/email",callback,new JSONObject(params));
+    }
+
+
 }
