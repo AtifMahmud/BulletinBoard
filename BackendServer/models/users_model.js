@@ -66,7 +66,7 @@ var schema = mongoose.Schema({
 module.exports = mongoose.model("users", schema);
 const Users = module.exports;
 
-const WANTED_FIELDS = "_id first_name last_name email phone registration rating num_ratings favourites rating_map";
+const WANTED_FIELDS = "_id first_name last_name email phone registration rating num_ratings favourites";
 
 /**
  * Sends a registration email to the email provided during registration
