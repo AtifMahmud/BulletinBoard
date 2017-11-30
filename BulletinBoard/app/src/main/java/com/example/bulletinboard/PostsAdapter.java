@@ -39,23 +39,13 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         // get and post data in field
         TextView title = (TextView) tempView.findViewById(R.id.title);
         TextView description = (TextView) tempView.findViewById(R.id.description);
-        TextView phone = (TextView) tempView.findViewById(R.id.showPhone);
-        TextView email = (TextView) tempView.findViewById(R.id.showEmail);
+        TextView user = (TextView) tempView.findViewById(R.id.user);
         TextView date = (TextView) tempView.findViewById(R.id.date);
-        TextView phoneHeader = (TextView) tempView.findViewById(R.id.showPhoneHeader);
-        TextView emailHeader = (TextView) tempView.findViewById(R.id.showEmailHeader);
+
+        getUserData(post.getUserId(),user);
 
         title.setText(post.getTitle());
         description.setText(post.getDescription());
-        if (!post.getShowPhone()) {
-            phone.setVisibility(View.INVISIBLE);
-            phoneHeader.setVisibility(View.INVISIBLE);
-        }
-
-        if (!post.getShowEmail()) {
-            phone.setVisibility(View.INVISIBLE);
-            emailHeader.setVisibility(View.INVISIBLE);
-        }
 
         date.setText(post.getDate());
 
@@ -63,14 +53,13 @@ public class PostsAdapter extends ArrayAdapter<Post> {
         return tempView;
     }
 
-    private void getUserData(String id, TextView phone, TextView mail){
+    private void getUserData(String id, TextView user){
         GetJSONObjectRequest request = GetJSONObjectRequest.getUser(id, new VolleyCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {
                     JSONObject data = response.getJSONObject("user");
-                    phone.setText("000000000");
-                    mail.setText(data.getString("email"));
+                    user.setText(data.getString("first_name") + " " + data.getString("last_name"));
                 }
                 catch (org.json.JSONException e){
                     Log.d("ERROR","JSON Error");
@@ -79,7 +68,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
 
             @Override
             public void onFailure() {
-
+                Log.d("ERROR","Couldn't get user info");
             }
         });
     }
