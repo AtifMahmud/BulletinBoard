@@ -13,6 +13,7 @@ import android.widget.TabHost;
 import android.widget.Toast;
 import android.widget.AdapterView.*;
 
+import com.example.bulletinboard.network.Connection;
 import com.example.bulletinboard.network.GetJSONObjectRequest;
 import com.example.bulletinboard.network.VolleyCallback;
 
@@ -187,7 +188,7 @@ public class ShowPost extends AppCompatActivity {
                 Log.d("failed", "Failure");
                 toastError();
             }
-        }, "5a1e1ec72e323670225b0abd");
+        }, Connection.get().getUserId());
 
         request2.send();
     }
