@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.bulletinboard.network.GetJSONObjectRequest;
 import com.example.bulletinboard.network.VolleyCallback;
+import com.example.bulletinboard.User;
 
 import org.json.JSONObject;
 
@@ -73,6 +74,7 @@ public class PostDisplayActivity extends AppCompatActivity {
 
     public static void displayText(Post p, TextView tv){
         tv.setText(p.getDescription());
+        User u = User.getUserById(p.getUserId());
     }
 
     public static void displayTitle(Post p, Toolbar tb){

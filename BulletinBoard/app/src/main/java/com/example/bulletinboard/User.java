@@ -28,7 +28,7 @@ public class User {
     private int totalRating;
     private int ratingCount;
 
-    public User empty(){
+    public static User empty(){
         return new User("","","","","");
     }
 
@@ -55,7 +55,7 @@ public class User {
     }
 
 
-    public User getUserById(String id){
+    public static User getUserById(String id){
 
         RequestFuture<JSONObject> future = RequestFuture.newFuture();
         GetSynchJSONObjectRequest request = GetSynchJSONObjectRequest.getUser(id, future);
@@ -76,12 +76,12 @@ public class User {
             }
             else{
                 Log.d("USER FAILED","Couldn't get user by ID, Server issue");
-                return empty();
+                return User.empty();
             }
         } catch (Exception e) {
             Log.d("USER FAILED","Couldn't get user by ID, Exception");
             e.printStackTrace();
-            return empty();
+            return User.empty();
         }
     }
 
