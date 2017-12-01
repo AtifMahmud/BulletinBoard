@@ -237,7 +237,7 @@ public class PostDisplayActivity extends AppCompatActivity {
     public void phone(View view){
         // Sending phone call code source: "https://stackoverflow.com/questions/5403308/make-a-phone-call-click-on-a-button"
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
-        callIntent.setData(Uri.parse("tel:6041234567"));
+        callIntent.setData(Uri.parse("tel:"+phone));
         startActivity(callIntent);
     }
 }
