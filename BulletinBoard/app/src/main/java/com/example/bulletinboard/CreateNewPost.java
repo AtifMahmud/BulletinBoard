@@ -30,13 +30,6 @@ public class CreateNewPost extends AppCompatActivity {
         CheckBox showPhone = (CheckBox) findViewById(R.id.showPhoneButton);
         CheckBox showEmail = (CheckBox) findViewById(R.id.showEmailButton);
 
-        Context context = getApplicationContext();
-        CharSequence text = "Values : " + showPhone.isChecked() + " " + showEmail.isChecked();
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
         boolean showPhoneState = showPhone.isChecked();
         boolean showEmailState = showEmail.isChecked();
         Post thisPost = new Post(title, description, "tempId", "tempUser", showPhoneState, showEmailState); //TODO CHANGE THAT
