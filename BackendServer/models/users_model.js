@@ -233,6 +233,20 @@ module.exports.favouritePost = function(user_id, post_id, cb) {
     });
 };
 
+module.exports.unfavouritePost = function(user_id, post_id, cb) {
+    Users.getUserById(user_id, function (err, user) {
+        if (err || !user) {
+            cb("User not found");
+        } else {
+            console.log(user);
+            var favs = user.favourites;
+            console.log(favs);
+            if (post_id in favs) delete favs[post_id];
+            Users.updateFields(user_id, "", {favourites:favs}, cb);
+        }
+    });
+};
+
 module.exports.getUserFavourites = function (uid, cb) {
 
     Users.getUserById(uid, function (err, user) {
