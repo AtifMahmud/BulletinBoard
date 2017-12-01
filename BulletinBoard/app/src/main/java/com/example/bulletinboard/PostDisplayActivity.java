@@ -80,11 +80,6 @@ public class PostDisplayActivity extends AppCompatActivity {
                     updateUserInfo(post.getUserId(), ratingBar);
                     updateFav();
 
-                    if(!post.getShowPhone()){
-                        View phone = findViewById(R.id.sendCallButton);
-                        phone.setVisibility(View.GONE);
-                    }
-
                     if(!post.getShowEmail()){
                         View email = findViewById(R.id.sendEmailButton);
                         email.setVisibility(View.GONE);
@@ -242,7 +237,7 @@ public class PostDisplayActivity extends AppCompatActivity {
     public void phone(View view){
         // Sending phone call code source: "https://stackoverflow.com/questions/5403308/make-a-phone-call-click-on-a-button"
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
-        callIntent.setData(Uri.parse("tel:"+phone));
+        callIntent.setData(Uri.parse("tel:6041234567"));
         startActivity(callIntent);
     }
 }
