@@ -103,7 +103,15 @@ public class PostJSONObjectRequest implements Request {
         params.put("user_id", Connection.get().getUserId());
         params.put("post_id", postId);
 
-        return new PostJSONObjectRequest("http://104.197.33.114:8000/api/favourites/",callback,new JSONObject(params));
+        return new PostJSONObjectRequest("http://104.197.33.114:8000/api/users/favourite/",callback,new JSONObject(params));
+    }
+
+    public static PostJSONObjectRequest remFav(VolleyCallback<JSONObject> callback, String postId){
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("user_id", Connection.get().getUserId());
+        params.put("post_id", postId);
+
+        return new PostJSONObjectRequest("http://104.197.33.114:8000/api/users/unfavourite/",callback,new JSONObject(params));
     }
 
 

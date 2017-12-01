@@ -54,10 +54,6 @@ public class GetJSONObjectRequest implements Request {
         return new GetJSONObjectRequest("/api/posts/all",callback);
     }
 
-    public static GetJSONObjectRequest getFavsPosts(VolleyCallback<JSONObject> callback, String userId){
-        return new GetJSONObjectRequest("/api/users/favourites/user_id="+userId,callback);
-    }
-
     public static GetJSONObjectRequest getMyPosts(VolleyCallback<JSONObject> callback){
         return new GetJSONObjectRequest("/api/posts/user_id="+Connection.get().getUserId(),callback);
     }
@@ -71,10 +67,10 @@ public class GetJSONObjectRequest implements Request {
     }
 
     public static GetJSONObjectRequest getFav(String id, VolleyCallback<JSONObject> callback){
-        return new GetJSONObjectRequest("/api/users/user_id="+Connection.get().getUserId()+"&post_id="+id,callback);
+        return new GetJSONObjectRequest("/api/users/favourites/contains/user_id="+Connection.get().getUserId()+"&post_id="+id,callback);
     }
 
     public static GetJSONObjectRequest getFavs(VolleyCallback<JSONObject> callback){
-        return new GetJSONObjectRequest("/api/users/user_id="+Connection.get().getUserId(),callback);
+        return new GetJSONObjectRequest("/api/users/favourites/user_id="+Connection.get().getUserId(),callback);
     }
 }

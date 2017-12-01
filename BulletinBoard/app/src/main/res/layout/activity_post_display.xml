@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@android:drawable/sym_def_app_icon"
-                app:srcCompat="@android:color/holo_green_dark" />
+                app:srcCompat="@drawable/wood" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -135,6 +135,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="16dp"
         android:clickable="true"
+        android:onClick="favAction"
         android:src="@android:drawable/ic_input_add"
         app:fabSize="mini"
         app:layout_anchor="@id/postPreview"

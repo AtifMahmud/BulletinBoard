@@ -180,7 +180,7 @@ public class ShowPost extends AppCompatActivity {
 
     private void updateFavPosts() {
 
-        GetJSONObjectRequest request2 = GetJSONObjectRequest.getFavsPosts(new VolleyCallback<JSONObject>() {
+        GetJSONObjectRequest request2 = GetJSONObjectRequest.getFavs(new VolleyCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject response) {
                 favPosts.addPosts(response);
@@ -195,7 +195,7 @@ public class ShowPost extends AppCompatActivity {
                 Log.d("failed", "Failure");
                 toastError();
             }
-        }, Connection.get().getUserId());
+        });
 
         request2.send();
     }

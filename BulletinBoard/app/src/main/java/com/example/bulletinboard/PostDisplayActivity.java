@@ -146,15 +146,29 @@ public class PostDisplayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void favAction() {
+    public void favAction(View view) {
         if(isFav){
+            PostJSONObjectRequest request = PostJSONObjectRequest.remFav(new VolleyCallback<JSONObject>() {
+                @Override
+                public void onSuccess(JSONObject response) {
+                    isFav = false;
+                    setFav(isFav);
+                }
 
+                @Override
+                public void onFailure() {
+                    isFav = false;
+                    setFav(false);
+                }
+            }, post.getId());
+
+            request.send();
         }else{
             PostJSONObjectRequest request = PostJSONObjectRequest.addFav(new VolleyCallback<JSONObject>() {
                 @Override
                 public void onSuccess(JSONObject response) {
-                    isFav = true;
-                    setFav(true);
+                        isFav = true;
+                        setFav(isFav);
                 }
 
                 @Override
@@ -172,7 +186,14 @@ public class PostDisplayActivity extends AppCompatActivity {
         GetJSONObjectRequest request = GetJSONObjectRequest.getFav(post.getId(), new VolleyCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject response) {
-                setFav(true);
+                try {
+                    isFav = response.getBoolean("is_fav");
+                    Log.d("Fav Status",response.getString("is_fav") + " " + response.getString("success"));
+                    setFav(isFav);
+                }
+                catch(org.json.JSONException e){
+                    Log.d("ERROR !!!","Problem");
+                }
             }
 
             @Override
