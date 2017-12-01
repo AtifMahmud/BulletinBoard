@@ -178,6 +178,20 @@ router.post("/favourite/user_id=:uid&post_id=:pid", function (req, resp) {
     })
 });
 
+router.post("/unfavourite/user_id=:uid&post_id=:pid", function (req, resp) {
+
+    var uid = req.params.uid;
+    var pid = req.params.pid;
+
+    Users.unfavouritePost(uid, pid, function (err) {
+        if (err) {
+            resp.json({success:false, err:err});
+        } else {
+            resp.json({success:true, user_id:uid, post_id:pid});
+        }
+    })
+});
+
 router.get("/favourites/user_id=:uid", function (req, resp) {
 
     var uid = req.params.uid;
