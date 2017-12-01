@@ -66,7 +66,7 @@ var schema = mongoose.Schema({
 module.exports = mongoose.model("users", schema);
 const Users = module.exports;
 
-const WANTED_FIELDS = "_id first_name last_name email phone registration rating num_ratings favourites";
+const WANTED_FIELDS = "_id first_name last_name email phone registration rating num_ratings favourites rating_map";
 
 /**
  * Sends a registration email to the email provided during registration
@@ -227,7 +227,7 @@ module.exports.favouritePost = function(user_id, post_id, cb) {
             console.log(user);
             var favs = user.favourites;
             console.log(favs);
-            favs[post_id] = true;
+            favs[aost_id] = true;
             Users.updateFields(user_id, "", {favourites:favs}, cb);
         }
     });
@@ -257,17 +257,19 @@ module.exports.addRating = function (rater_id, ratee_id, token, rating, cb) {
                 var old_rating  = user.rating;
                 var num_ratings = user.num_ratings;
                 var new_rating = -1;
-                if (user.rating_map[rater_id] !== undefined) {
-                    new_rating = (old_rating*num_ratings + rating - user.rating_map[rater_id])/num_ratings;
+		var rating_map = user.rating_map;
+                if (rating_map !== undefined && rater_id in rating_map) {
+                    new_rating = (old_rating*num_ratings + rating - rating_map[rater_id])/num_ratings;
                 } else {
                     new_rating = (old_rating*num_ratings + rating)/(num_ratings+1);
                     num_ratings++;
+		    rating_map = {};
                 }
-                user.rating_map[rater_id] = rating;
+                rating_map[rater_id] = rating;
                 Users.updateFields(
                     ratee_id,
                     token,
-                    {rating:new_rating, num_ratings:num_ratings, rating_map:user.rating_map},
+                    {rating:new_rating, num_ratings:num_ratings, rating_map:rating_map},
                     function (err) {
                         if (err) cb(err, -1);
                         else     cb(err, new_rating);
